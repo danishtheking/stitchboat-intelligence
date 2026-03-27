@@ -28,16 +28,12 @@ import { share } from '@/lib/share';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/authStore';
 import { useInstallationUI } from '@/store/installationStore';
-import { usePageTabStore } from '@/store/pageTabStore';
 import { useSidebarStore } from '@/store/sidebarStore';
 import { ChatTaskStatus } from '@/types/constants';
 import {
-  ChevronDown,
   ChevronLeft,
   House,
   Minus,
-  PanelLeft,
-  PanelLeftClose,
   Plus,
   Power,
   Settings,
@@ -59,13 +55,6 @@ function HeaderWin() {
   const location = useLocation();
   //Get Chatstore for the active project's task
   const { chatStore, projectStore } = useChatStoreAdapter();
-  const { chatPanelPosition, setChatPanelPosition } = usePageTabStore();
-  const projectSidebarCollapsed = usePageTabStore(
-    (s) => s.projectSidebarCollapsed
-  );
-  const toggleProjectSidebarCollapsed = usePageTabStore(
-    (s) => s.toggleProjectSidebarCollapsed
-  );
   const historySidebarOpen = useSidebarStore((s) => s.isOpen);
   const toggleHistorySidebar = useSidebarStore((s) => s.toggle);
   const appearance = useAuthStore((state) => state.appearance);
@@ -213,9 +202,9 @@ function HeaderWin() {
         </div>
       )}
 
-      {/* center */}
-      <div className="drag pr-2 flex h-full flex-1 items-center justify-between">
-        <div className="relative z-50 flex h-full items-center">
+      {/* center: left controls | centered nav group | right actions */}
+      <div className="drag pr-2 min-w-0 flex h-full flex-1 items-center">
+        <div className="drag min-w-0 gap-2 pl-2 relative z-50 flex h-full flex-1 items-center justify-start">
           {location.pathname === '/history' && (
             <div className="mr-1 flex items-center">
               <Button
@@ -229,46 +218,11 @@ function HeaderWin() {
             </div>
           )}
           {location.pathname === '/' && (
-            <div className="pl-2 gap-1 flex items-center">
-              <TooltipSimple
-                content={
-                  projectSidebarCollapsed
-                    ? t('layout.expand-sidebar', {
-                        defaultValue: 'Expand sidebar',
-                      })
-                    : t('layout.collapse-sidebar', {
-                        defaultValue: 'Collapse sidebar',
-                      })
-                }
-                side="bottom"
-                align="center"
-              >
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="no-drag rounded-full"
-                  onClick={toggleProjectSidebarCollapsed}
-                  aria-label={
-                    projectSidebarCollapsed
-                      ? t('layout.expand-sidebar', {
-                          defaultValue: 'Expand sidebar',
-                        })
-                      : t('layout.collapse-sidebar', {
-                          defaultValue: 'Collapse sidebar',
-                        })
-                  }
-                >
-                  {projectSidebarCollapsed ? (
-                    <PanelLeft className="h-4 w-4 text-icon-primary" />
-                  ) : (
-                    <PanelLeftClose className="h-4 w-4 text-icon-primary" />
-                  )}
-                </Button>
-              </TooltipSimple>
+            <>
               <TooltipSimple
                 content={t('layout.dashboard')}
                 side="bottom"
-                align="center"
+                align="start"
               >
                 <Button
                   variant="ghost"
@@ -284,66 +238,62 @@ function HeaderWin() {
                   <House className="h-4 w-4 text-icon-primary" aria-hidden />
                 </Button>
               </TooltipSimple>
-              <>
-                {activeTaskTitle === t('layout.new-project') ? (
-                  <TooltipSimple
-                    content={t('layout.new-project')}
-                    side="bottom"
-                    align="center"
+              {activeTaskTitle === t('layout.new-project') ? (
+                <TooltipSimple
+                  content={t('layout.new-project')}
+                  side="bottom"
+                  align="start"
+                >
+                  <Button
+                    id="active-task-title-btn"
+                    variant="ghost"
+                    className="no-drag text-base font-bold rounded-full"
+                    onClick={toggleHistorySidebar}
+                    size="sm"
+                    aria-expanded={historySidebarOpen}
+                    aria-haspopup="dialog"
                   >
-                    <Button
-                      id="active-task-title-btn"
-                      variant="ghost"
-                      className="no-drag text-base font-bold rounded-full"
-                      onClick={toggleHistorySidebar}
-                      size="sm"
-                      aria-expanded={historySidebarOpen}
-                      aria-haspopup="dialog"
-                    >
-                      <span className="inline-block max-w-[300px] overflow-hidden align-middle text-ellipsis whitespace-nowrap">
-                        {t('layout.new-project')}
-                      </span>
-                      <ChevronDown />
-                    </Button>
-                  </TooltipSimple>
-                ) : (
-                  <TooltipSimple
-                    content={activeTaskTitle}
-                    side="bottom"
-                    align="center"
+                    <span className="inline-block max-w-[300px] overflow-hidden align-middle text-ellipsis whitespace-nowrap">
+                      {t('layout.new-project')}
+                    </span>
+                  </Button>
+                </TooltipSimple>
+              ) : (
+                <TooltipSimple
+                  content={activeTaskTitle}
+                  side="bottom"
+                  align="start"
+                >
+                  <Button
+                    id="active-task-title-btn"
+                    variant="ghost"
+                    size="sm"
+                    className="no-drag min-w-0 text-base font-bold"
+                    onClick={toggleHistorySidebar}
+                    aria-expanded={historySidebarOpen}
+                    aria-haspopup="dialog"
                   >
-                    <Button
-                      id="active-task-title-btn"
-                      variant="ghost"
-                      size="sm"
-                      className="no-drag text-base font-bold"
-                      onClick={toggleHistorySidebar}
-                      aria-expanded={historySidebarOpen}
-                      aria-haspopup="dialog"
-                    >
-                      <span className="inline-block max-w-[300px] overflow-hidden align-middle text-ellipsis whitespace-nowrap">
-                        {activeTaskTitle}
-                      </span>
-                      <ChevronDown />
-                    </Button>
-                  </TooltipSimple>
-                )}
-              </>
+                    <span className="inline-block max-w-[300px] overflow-hidden align-middle text-ellipsis whitespace-nowrap">
+                      {activeTaskTitle}
+                    </span>
+                  </Button>
+                </TooltipSimple>
+              )}
               <TooltipSimple
                 content={t('layout.new-project')}
                 side="bottom"
-                align="center"
+                align="start"
               >
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="no-drag rounded-full"
+                  className="no-drag shrink-0 rounded-full"
                   onClick={createNewProject}
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
               </TooltipSimple>
-            </div>
+            </>
           )}
         </div>
 
@@ -351,7 +301,7 @@ function HeaderWin() {
         <div
           className={`${
             platform === 'darwin' && 'pr-2'
-          } no-drag gap-1 relative z-50 flex h-full items-center`}
+          } drag gap-1 min-w-0 relative z-50 flex h-full flex-1 items-center justify-end`}
         >
           {location.pathname !== '/history' && (
             <>

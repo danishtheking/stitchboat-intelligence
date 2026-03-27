@@ -26,8 +26,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { TooltipSimple } from '@/components/ui/tooltip';
 import {
   getTaskListShelfTone,
   type TaskListShelfTone,
@@ -43,7 +46,10 @@ import {
   Compass,
   Hammer,
   Inbox,
+  Layers,
   LayoutGrid,
+  PanelLeft,
+  PanelLeftClose,
   WandSparkles,
   Zap,
 } from 'lucide-react';
@@ -108,6 +114,8 @@ const SHELF_TONE_ROW_CLASS: Record<TaskListShelfTone, string> = {
 };
 
 const PROJECT_SIDEBAR_WIDTH_PX = 240;
+/** Narrow strip when folded: one icon row to expand */
+const PROJECT_SIDEBAR_COLLAPSED_RAIL_PX = 40;
 /** Matches Home main panel layout animation */
 const PROJECT_SIDEBAR_SPRING = {
   type: 'spring' as const,
@@ -231,6 +239,9 @@ export default function ProjectPageSidebar({
   className,
 }: ProjectPageSidebarProps) {
   const collapsed = usePageTabStore((s) => s.projectSidebarCollapsed);
+  const toggleProjectSidebarCollapsed = usePageTabStore(
+    (s) => s.toggleProjectSidebarCollapsed
+  );
   const setScrollToQueryId = usePageTabStore((s) => s.setScrollToQueryId);
   const activeWorkspaceTab = usePageTabStore((s) => s.activeWorkspaceTab);
   const setActiveWorkspaceTab = usePageTabStore((s) => s.setActiveWorkspaceTab);
@@ -244,6 +255,7 @@ export default function ProjectPageSidebar({
   const [connectorsMenuOpen, setConnectorsMenuOpen] = useState(false);
   const [browserMenuOpen, setBrowserMenuOpen] = useState(false);
   const [helpMenuOpen, setHelpMenuOpen] = useState(false);
+  const [collapsedHubMenuOpen, setCollapsedHubMenuOpen] = useState(false);
 
   const { skillsHubActive, connectorsHubActive, browserHubActive } =
     useMemo(() => {
@@ -259,6 +271,12 @@ export default function ProjectPageSidebar({
         browserHubActive: onHistory && tab === 'browser',
       };
     }, [location.pathname, location.search]);
+
+  const collapsedHubTriggerActive =
+    skillsHubActive ||
+    connectorsHubActive ||
+    browserHubActive ||
+    collapsedHubMenuOpen;
 
   const activeUpdateCount = chatStore.updateCount;
 
@@ -300,6 +318,14 @@ export default function ProjectPageSidebar({
     cn(
       'no-drag h-8 w-full min-w-0 rounded-xl bg-surface-primary',
       'hover:bg-surface-tertiary flex cursor-pointer items-center justify-center transition-colors',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-secondary',
+      active && 'bg-surface-tertiary'
+    );
+
+  const collapsedRailIconClass = (active: boolean) =>
+    cn(
+      'no-drag h-8 w-8 shrink-0 rounded-xl bg-transparent',
+      'flex cursor-pointer items-center justify-center transition-colors',
       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-secondary',
       active && 'bg-surface-tertiary'
     );
@@ -503,188 +529,154 @@ export default function ProjectPageSidebar({
       <motion.aside
         initial={false}
         animate={{
-          width: collapsed ? 0 : PROJECT_SIDEBAR_WIDTH_PX,
-          marginRight: collapsed ? 0 : SIDEBAR_EDGE_MARGIN_PX,
+          width: collapsed
+            ? PROJECT_SIDEBAR_COLLAPSED_RAIL_PX
+            : PROJECT_SIDEBAR_WIDTH_PX,
+          marginRight: SIDEBAR_EDGE_MARGIN_PX,
         }}
         transition={PROJECT_SIDEBAR_SPRING}
         className={cn(
           'min-h-0 flex h-full shrink-0 flex-col overflow-hidden',
           className
         )}
-        style={{ pointerEvents: collapsed ? 'none' : 'auto' }}
-        aria-hidden={collapsed}
       >
-        <motion.div
-          className="min-h-0 flex h-full w-[240px] min-w-[240px] flex-col overflow-x-hidden"
-          initial={false}
-          animate={{
-            x: collapsed ? -18 : 0,
-            opacity: collapsed ? 0 : 1,
-          }}
-          transition={PROJECT_SIDEBAR_SPRING}
-        >
-          <div className="gap-2 flex shrink-0 flex-col">
-            <div className="gap-1 grid w-full grid-cols-3">
-              <DropdownMenu
-                open={skillsMenuOpen}
-                onOpenChange={setSkillsMenuOpen}
+        {collapsed ? (
+          <div className="no-drag min-h-0 gap-2 py-2 flex h-full w-full flex-col items-center overflow-y-auto">
+            <TooltipSimple
+              content={t('layout.expand-sidebar', {
+                defaultValue: 'Expand sidebar',
+              })}
+              side="right"
+              align="center"
+            >
+              <button
+                type="button"
+                className={collapsedRailIconClass(false)}
+                onClick={toggleProjectSidebarCollapsed}
+                aria-label={t('layout.expand-sidebar', {
+                  defaultValue: 'Expand sidebar',
+                })}
               >
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    className={hubIconTabClass(
-                      skillsHubActive || skillsMenuOpen
-                    )}
-                    aria-label={t('agents.skills')}
-                    aria-haspopup="menu"
-                  >
-                    <WandSparkles
-                      className="h-4 w-4 text-icon-primary shrink-0"
-                      aria-hidden
-                    />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="right"
-                  align="start"
-                  sideOffset={8}
-                  alignOffset={0}
-                  className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
-                  style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
-                >
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate(
-                        '/history?tab=agents&section=skills&skillAction=create'
-                      )
-                    }
-                  >
-                    {t('agents.create-skill')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate(
-                        '/history?tab=agents&section=skills&skillAction=upload'
-                      )
-                    }
-                  >
-                    {t('agents.upload-skill')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate('/history?tab=agents&section=skills')
-                    }
-                  >
-                    {t('agents.browse-skills')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                <PanelLeft
+                  className="h-4 w-4 text-icon-primary shrink-0"
+                  aria-hidden
+                />
+              </button>
+            </TooltipSimple>
 
-              <DropdownMenu
-                open={connectorsMenuOpen}
-                onOpenChange={setConnectorsMenuOpen}
+            <DropdownMenu
+              open={collapsedHubMenuOpen}
+              onOpenChange={setCollapsedHubMenuOpen}
+            >
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className={collapsedRailIconClass(collapsedHubTriggerActive)}
+                  aria-label={t('layout.project-hub-menu', {
+                    defaultValue: 'Skills, connectors, and browser',
+                  })}
+                  aria-haspopup="menu"
+                >
+                  <Layers
+                    className="h-4 w-4 text-icon-primary shrink-0"
+                    aria-hidden
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="right"
+                align="start"
+                sideOffset={8}
+                alignOffset={0}
+                className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
+                style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
               >
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    className={hubIconTabClass(
-                      connectorsHubActive || connectorsMenuOpen
-                    )}
-                    aria-label={t('layout.connectors')}
-                    aria-haspopup="menu"
-                  >
-                    <Hammer
-                      className="h-4 w-4 text-icon-primary shrink-0"
-                      aria-hidden
-                    />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="right"
-                  align="start"
-                  sideOffset={8}
-                  alignOffset={0}
-                  className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
-                  style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
+                <DropdownMenuLabel className="text-text-secondary px-3 py-1.5 text-label-xs font-semibold">
+                  {t('agents.skills')}
+                </DropdownMenuLabel>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate(
+                      '/history?tab=agents&section=skills&skillAction=create'
+                    )
+                  }
                 >
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate('/history?tab=connectors&connectorAction=add')
-                    }
-                  >
-                    {t('layout.add-new-mcp')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate(
-                        '/history?tab=connectors&connectorSection=mcp-tools'
-                      )
-                    }
-                  >
-                    {t('layout.browse-mcps')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <DropdownMenu
-                open={browserMenuOpen}
-                onOpenChange={setBrowserMenuOpen}
-              >
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    className={hubIconTabClass(
-                      browserHubActive || browserMenuOpen
-                    )}
-                    aria-label={t('layout.browser')}
-                    aria-haspopup="menu"
-                  >
-                    <Compass
-                      className="h-4 w-4 text-icon-primary shrink-0"
-                      aria-hidden
-                    />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="right"
-                  align="start"
-                  sideOffset={8}
-                  alignOffset={0}
-                  className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
-                  style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
+                  {t('agents.create-skill')}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate(
+                      '/history?tab=agents&section=skills&skillAction=upload'
+                    )
+                  }
                 >
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate('/history?tab=browser&browserAction=launch')
-                    }
-                  >
-                    {t('layout.open-new-browser')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() =>
-                      navigate('/history?tab=browser&browserSection=cdp')
-                    }
-                  >
-                    {t('layout.browser-settings')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+                  {t('agents.upload-skill')}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate('/history?tab=agents&section=skills')
+                  }
+                >
+                  {t('agents.browse-skills')}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-border-secondary my-1" />
+                <DropdownMenuLabel className="text-text-secondary px-3 py-1.5 text-label-xs font-semibold">
+                  {t('layout.connectors')}
+                </DropdownMenuLabel>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate('/history?tab=connectors&connectorAction=add')
+                  }
+                >
+                  {t('layout.add-new-mcp')}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate(
+                      '/history?tab=connectors&connectorSection=mcp-tools'
+                    )
+                  }
+                >
+                  {t('layout.browse-mcps')}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-border-secondary my-1" />
+                <DropdownMenuLabel className="text-text-secondary px-3 py-1.5 text-label-xs font-semibold">
+                  {t('layout.browser')}
+                </DropdownMenuLabel>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate('/history?tab=browser&browserAction=launch')
+                  }
+                >
+                  {t('layout.open-new-browser')}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                  onSelect={() =>
+                    navigate('/history?tab=browser&browserSection=cdp')
+                  }
+                >
+                  {t('layout.browser-settings')}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-            <div className="gap-2 flex flex-col">
+            <TooltipSimple
+              content={t('triggers.workspace')}
+              side="right"
+              align="center"
+            >
               <button
                 type="button"
                 onClick={() => setActiveWorkspaceTab('workforce')}
-                className={cn(
-                  rowButtonClass,
-                  activeWorkspaceTab === 'workforce' && 'bg-surface-tertiary'
+                className={collapsedRailIconClass(
+                  activeWorkspaceTab === 'workforce'
                 )}
                 aria-label={t('triggers.workspace')}
                 aria-current={
@@ -695,16 +687,19 @@ export default function ProjectPageSidebar({
                   className="h-4 w-4 text-icon-primary shrink-0"
                   aria-hidden
                 />
-                <span className="min-w-0 text-text-label text-body-sm font-medium flex-1 truncate">
-                  {t('triggers.workspace')}
-                </span>
               </button>
+            </TooltipSimple>
+
+            <TooltipSimple
+              content={t('layout.folder')}
+              side="right"
+              align="center"
+            >
               <button
                 type="button"
                 onClick={() => setActiveWorkspaceTab('inbox')}
                 className={cn(
-                  rowButtonClass,
-                  activeWorkspaceTab === 'inbox' && 'bg-surface-tertiary',
+                  collapsedRailIconClass(activeWorkspaceTab === 'inbox'),
                   'relative'
                 )}
                 aria-label={t('layout.folder')}
@@ -716,22 +711,25 @@ export default function ProjectPageSidebar({
                   className="h-4 w-4 text-icon-primary shrink-0"
                   aria-hidden
                 />
-                <span className="min-w-0 text-text-label text-body-sm font-medium flex-1 truncate">
-                  {t('layout.folder')}
-                </span>
                 {unviewedTabs.has('inbox') && (
                   <span
-                    className="h-2 w-2 bg-red-500 shrink-0 rounded-full"
+                    className="right-0.5 top-0.5 h-2 w-2 bg-red-500 absolute rounded-full"
                     aria-hidden
                   />
                 )}
               </button>
+            </TooltipSimple>
+
+            <TooltipSimple
+              content={t('layout.triggers')}
+              side="right"
+              align="center"
+            >
               <button
                 type="button"
                 onClick={() => setActiveWorkspaceTab('triggers')}
                 className={cn(
-                  rowButtonClass,
-                  activeWorkspaceTab === 'triggers' && 'bg-surface-tertiary',
+                  collapsedRailIconClass(activeWorkspaceTab === 'triggers'),
                   'relative'
                 )}
                 aria-label={t('layout.triggers')}
@@ -743,136 +741,402 @@ export default function ProjectPageSidebar({
                   className="h-4 w-4 text-icon-primary shrink-0"
                   aria-hidden
                 />
-                <span className="min-w-0 text-text-label text-body-sm font-medium flex-1 truncate">
-                  {t('layout.triggers')}
-                </span>
                 {unviewedTabs.has('triggers') && (
                   <span
-                    className="h-2 w-2 bg-text-error shrink-0 rounded-full"
+                    className="right-0.5 top-0.5 h-2 w-2 bg-text-error absolute rounded-full"
                     aria-hidden
                   />
                 )}
               </button>
-            </div>
+            </TooltipSimple>
           </div>
-
-          <div className="bg-surface-tertiary mx-2 my-2 rounded-xl h-[1.5px] flex-col overflow-hidden opacity-80"></div>
-
-          <div className="min-h-0 flex flex-1 flex-col overflow-hidden">
-            <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto">
-              {allTaskEntries.length === 0 ? (
-                <p className="text-text-label text-xs px-3">
-                  {t('layout.no-tasks', { defaultValue: 'No tasks' })}
-                </p>
-              ) : (
-                <div className="gap-2 flex flex-col">
-                  {allTaskEntries.map(
-                    ({ chatId, taskId, task, firstUserMessageId }) => (
-                      <ProjectSidebarTaskListRow
-                        key={`${chatId}-${taskId}`}
-                        task={task}
-                        firstUserMessageId={firstUserMessageId}
-                        active={chatStore.activeTaskId === taskId}
-                        setScrollToQueryId={setScrollToQueryId}
-                      />
-                    )
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="border-border-secondary pt-2 mt-auto shrink-0 border-t">
-            <div className="gap-1 grid grid-cols-4">
-              <button
-                type="button"
-                onClick={() => navigate('/history?tab=agents&section=models')}
-                title={`${modelModeLine}\n${modelDetailLine}`}
-                className={cn(
-                  rowButtonClass,
-                  'h-12 min-h-12 bg-surface-primary col-span-3',
-                  'focus-visible:ring-border-secondary focus-visible:ring-2 focus-visible:outline-none'
-                )}
-                aria-label={t('setting.models')}
-              >
-                <span
-                  className="h-7 w-7 flex shrink-0 items-center justify-center"
-                  aria-hidden
+        ) : (
+          <motion.div
+            className="min-h-0 flex h-full w-[240px] min-w-[240px] flex-col overflow-x-hidden"
+            initial={false}
+            animate={{ x: 0, opacity: 1 }}
+            transition={PROJECT_SIDEBAR_SPRING}
+          >
+            <div className="gap-2 flex shrink-0 flex-col">
+              <div className="no-drag min-w-0 gap-1 flex w-full shrink-0 items-center">
+                <TooltipSimple
+                  content={t('layout.collapse-sidebar', {
+                    defaultValue: 'Collapse sidebar',
+                  })}
+                  side="bottom"
+                  align="start"
                 >
-                  <img
-                    src={folderIcon}
-                    alt=""
-                    className="h-7 w-7 mt-1 shrink-0 object-contain"
-                    draggable={false}
-                  />
-                </span>
-                <div className="min-w-0 flex flex-1 flex-col justify-center leading-none">
-                  <div className="bg-surface-information rounded-md px-1 w-fit">
-                    <span className="text-text-information text-label-xs font-semibold leading-tight truncate text-nowrap">
-                      {modelModeLine}
-                    </span>
-                  </div>
-                  <span className="text-text-secondary leading-tight px-1 truncate text-[10px]">
-                    {modelDetailLine}
-                  </span>
-                </div>
-              </button>
-              <DropdownMenu open={helpMenuOpen} onOpenChange={setHelpMenuOpen}>
-                <DropdownMenuTrigger asChild>
-                  <button
+                  <Button
                     type="button"
-                    className={cn(
-                      hubIconTabClass(helpMenuOpen),
-                      'h-12 min-h-12'
-                    )}
-                    aria-label={t('layout.help-and-support', {
-                      defaultValue: 'Help and support',
+                    variant="ghost"
+                    size="icon"
+                    className="no-drag h-8 w-8 rounded-xl hover:bg-surface-tertiary shrink-0"
+                    onClick={toggleProjectSidebarCollapsed}
+                    aria-label={t('layout.collapse-sidebar', {
+                      defaultValue: 'Collapse sidebar',
                     })}
-                    aria-haspopup="menu"
                   >
-                    <CircleHelp
+                    <PanelLeftClose
                       className="h-4 w-4 text-icon-primary shrink-0"
                       aria-hidden
                     />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="right"
-                  align="end"
-                  sideOffset={8}
-                  alignOffset={8}
-                  className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
-                  style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
+                  </Button>
+                </TooltipSimple>
+                <button
+                  type="button"
+                  onClick={() => navigate('/history?tab=agents&section=models')}
+                  title={`${modelModeLine}\n${modelDetailLine}`}
+                  className={cn(
+                    rowButtonClass,
+                    'h-12 min-h-12 min-w-0 bg-surface-primary flex-1 shrink',
+                    'focus-visible:ring-border-secondary focus-visible:ring-2 focus-visible:outline-none'
+                  )}
+                  aria-label={t('setting.models')}
                 >
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() => setSupportDialogOpen(true)}
+                  <span
+                    className="h-7 w-7 flex shrink-0 items-center justify-center"
+                    aria-hidden
                   >
-                    {t('layout.contact-support')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() => {
-                      void reportBugOpenGithub();
-                    }}
+                    <img
+                      src={folderIcon}
+                      alt=""
+                      className="h-7 w-7 mt-1 shrink-0 object-contain"
+                      draggable={false}
+                    />
+                  </span>
+                  <div className="min-w-0 flex flex-1 flex-col justify-center leading-none">
+                    <div className="bg-surface-information rounded-md px-1 w-fit max-w-full">
+                      <span className="text-text-information text-label-xs font-semibold leading-tight truncate text-nowrap">
+                        {modelModeLine}
+                      </span>
+                    </div>
+                    <span className="text-text-secondary leading-tight px-1 truncate text-[10px]">
+                      {modelDetailLine}
+                    </span>
+                  </div>
+                </button>
+              </div>
+
+              <div className="gap-1 grid w-full grid-cols-3">
+                <DropdownMenu
+                  open={skillsMenuOpen}
+                  onOpenChange={setSkillsMenuOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className={hubIconTabClass(
+                        skillsHubActive || skillsMenuOpen
+                      )}
+                      aria-label={t('agents.skills')}
+                      aria-haspopup="menu"
+                    >
+                      <WandSparkles
+                        className="h-4 w-4 text-icon-primary shrink-0"
+                        aria-hidden
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    side="right"
+                    align="start"
+                    sideOffset={8}
+                    alignOffset={0}
+                    className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
+                    style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
                   >
-                    {t('layout.report-bug')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
-                    onSelect={() => {
-                      void downloadLogs();
-                    }}
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate(
+                          '/history?tab=agents&section=skills&skillAction=create'
+                        )
+                      }
+                    >
+                      {t('agents.create-skill')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate(
+                          '/history?tab=agents&section=skills&skillAction=upload'
+                        )
+                      }
+                    >
+                      {t('agents.upload-skill')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate('/history?tab=agents&section=skills')
+                      }
+                    >
+                      {t('agents.browse-skills')}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu
+                  open={connectorsMenuOpen}
+                  onOpenChange={setConnectorsMenuOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className={hubIconTabClass(
+                        connectorsHubActive || connectorsMenuOpen
+                      )}
+                      aria-label={t('layout.connectors')}
+                      aria-haspopup="menu"
+                    >
+                      <Hammer
+                        className="h-4 w-4 text-icon-primary shrink-0"
+                        aria-hidden
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    side="right"
+                    align="start"
+                    sideOffset={8}
+                    alignOffset={0}
+                    className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
+                    style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
                   >
-                    {t('layout.download-logs', {
-                      defaultValue: 'Download logs',
-                    })}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate('/history?tab=connectors&connectorAction=add')
+                      }
+                    >
+                      {t('layout.add-new-mcp')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate(
+                          '/history?tab=connectors&connectorSection=mcp-tools'
+                        )
+                      }
+                    >
+                      {t('layout.browse-mcps')}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu
+                  open={browserMenuOpen}
+                  onOpenChange={setBrowserMenuOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className={hubIconTabClass(
+                        browserHubActive || browserMenuOpen
+                      )}
+                      aria-label={t('layout.browser')}
+                      aria-haspopup="menu"
+                    >
+                      <Compass
+                        className="h-4 w-4 text-icon-primary shrink-0"
+                        aria-hidden
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    side="right"
+                    align="start"
+                    sideOffset={8}
+                    alignOffset={0}
+                    className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
+                    style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
+                  >
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate('/history?tab=browser&browserAction=launch')
+                      }
+                    >
+                      {t('layout.open-new-browser')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() =>
+                        navigate('/history?tab=browser&browserSection=cdp')
+                      }
+                    >
+                      {t('layout.browser-settings')}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
+              <div className="gap-2 flex flex-col">
+                <button
+                  type="button"
+                  onClick={() => setActiveWorkspaceTab('workforce')}
+                  className={cn(
+                    rowButtonClass,
+                    activeWorkspaceTab === 'workforce' && 'bg-surface-tertiary'
+                  )}
+                  aria-label={t('triggers.workspace')}
+                  aria-current={
+                    activeWorkspaceTab === 'workforce' ? 'page' : undefined
+                  }
+                >
+                  <LayoutGrid
+                    className="h-4 w-4 text-icon-primary shrink-0"
+                    aria-hidden
+                  />
+                  <span className="min-w-0 text-text-label text-body-sm font-medium flex-1 truncate">
+                    {t('triggers.workspace')}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveWorkspaceTab('inbox')}
+                  className={cn(
+                    rowButtonClass,
+                    activeWorkspaceTab === 'inbox' && 'bg-surface-tertiary',
+                    'relative'
+                  )}
+                  aria-label={t('layout.folder')}
+                  aria-current={
+                    activeWorkspaceTab === 'inbox' ? 'page' : undefined
+                  }
+                >
+                  <Inbox
+                    className="h-4 w-4 text-icon-primary shrink-0"
+                    aria-hidden
+                  />
+                  <span className="min-w-0 text-text-label text-body-sm font-medium flex-1 truncate">
+                    {t('layout.folder')}
+                  </span>
+                  {unviewedTabs.has('inbox') && (
+                    <span
+                      className="h-2 w-2 bg-red-500 shrink-0 rounded-full"
+                      aria-hidden
+                    />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveWorkspaceTab('triggers')}
+                  className={cn(
+                    rowButtonClass,
+                    activeWorkspaceTab === 'triggers' && 'bg-surface-tertiary',
+                    'relative'
+                  )}
+                  aria-label={t('layout.triggers')}
+                  aria-current={
+                    activeWorkspaceTab === 'triggers' ? 'page' : undefined
+                  }
+                >
+                  <Zap
+                    className="h-4 w-4 text-icon-primary shrink-0"
+                    aria-hidden
+                  />
+                  <span className="min-w-0 text-text-label text-body-sm font-medium flex-1 truncate">
+                    {t('layout.triggers')}
+                  </span>
+                  {unviewedTabs.has('triggers') && (
+                    <span
+                      className="h-2 w-2 bg-text-error shrink-0 rounded-full"
+                      aria-hidden
+                    />
+                  )}
+                </button>
+              </div>
             </div>
-          </div>
-        </motion.div>
+
+            <div className="bg-surface-tertiary mx-2 my-2 rounded-xl h-[1.5px] flex-col overflow-hidden opacity-80"></div>
+
+            <div className="min-h-0 flex flex-1 flex-col overflow-hidden">
+              <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto">
+                {allTaskEntries.length === 0 ? (
+                  <p className="text-text-label text-xs px-3">
+                    {t('layout.no-tasks', { defaultValue: 'No tasks' })}
+                  </p>
+                ) : (
+                  <div className="gap-2 flex flex-col">
+                    {allTaskEntries.map(
+                      ({ chatId, taskId, task, firstUserMessageId }) => (
+                        <ProjectSidebarTaskListRow
+                          key={`${chatId}-${taskId}`}
+                          task={task}
+                          firstUserMessageId={firstUserMessageId}
+                          active={chatStore.activeTaskId === taskId}
+                          setScrollToQueryId={setScrollToQueryId}
+                        />
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="border-border-secondary pt-2 mt-auto shrink-0 border-t">
+              <div className="flex w-full justify-end">
+                <DropdownMenu
+                  open={helpMenuOpen}
+                  onOpenChange={setHelpMenuOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className={cn(
+                        hubIconTabClass(helpMenuOpen),
+                        'h-12 min-h-12'
+                      )}
+                      aria-label={t('layout.help-and-support', {
+                        defaultValue: 'Help and support',
+                      })}
+                      aria-haspopup="menu"
+                    >
+                      <CircleHelp
+                        className="h-4 w-4 text-icon-primary shrink-0"
+                        aria-hidden
+                      />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    side="right"
+                    align="end"
+                    sideOffset={8}
+                    alignOffset={8}
+                    className={PROJECT_HUB_DROPDOWN_CONTENT_CLASS}
+                    style={PROJECT_HUB_DROPDOWN_CONTENT_STYLE}
+                  >
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() => setSupportDialogOpen(true)}
+                    >
+                      {t('layout.contact-support')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() => {
+                        void reportBugOpenGithub();
+                      }}
+                    >
+                      {t('layout.report-bug')}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={PROJECT_HUB_DROPDOWN_ITEM_CLASS}
+                      onSelect={() => {
+                        void downloadLogs();
+                      }}
+                    >
+                      {t('layout.download-logs', {
+                        defaultValue: 'Download logs',
+                      })}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </motion.aside>
     </>
   );

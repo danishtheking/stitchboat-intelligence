@@ -18,13 +18,13 @@ import {
   type ImperativePanelHandle,
 } from 'react-resizable-panels';
 
-const CHAT_PANEL_DEFAULT_PX = 400;
+/** Default share of the group for the chat panel (main workspace hugs the rest). */
+const CHAT_PANEL_DEFAULT_PCT = 68;
 const CHAT_PANEL_MIN_PX = 360;
 
 /**
- * On mount (and when resetKey changes), sizes the chat panel to ~400px as a
- * percentage of the panel group width. ChatBox stays w-full inside the panel
- * with min-w-[360px]; user drag can grow the panel beyond 400px.
+ * On mount (and when resetKey changes), sizes the chat panel to ~68% of the
+ * group so it reads full-width by default; respects a ~360px floor in narrow layouts.
  */
 export function useInitialChatPanelLayout(
   panelGroupId: string,
@@ -38,9 +38,8 @@ export function useInitialChatPanelLayout(
     if (!groupEl) return;
     const w = groupEl.getBoundingClientRect().width;
     if (w <= 0) return;
-    const targetPct = (CHAT_PANEL_DEFAULT_PX / w) * 100;
-    const minPct = (CHAT_PANEL_MIN_PX / w) * 100;
-    const pct = Math.min(92, Math.max(minPct, targetPct));
+    const minPctFromPx = (CHAT_PANEL_MIN_PX / w) * 100;
+    const pct = Math.min(92, Math.max(minPctFromPx, CHAT_PANEL_DEFAULT_PCT));
     chatPanelRef.current?.resize(pct);
   }, [panelGroupId, enabled, resetKey, chatPanelRef]);
 }

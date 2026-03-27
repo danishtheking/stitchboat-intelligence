@@ -16,7 +16,6 @@ import ChatBox from '@/components/ChatBox';
 import Folder from '@/components/Folder';
 import ProjectPageSidebar from '@/components/ProjectPageSidebar';
 import UpdateElectron from '@/components/update';
-import Workflow from '@/components/WorkFlow';
 import useChatStoreAdapter from '@/hooks/useChatStoreAdapter';
 import { useInitialChatPanelLayout } from '@/hooks/useInitialChatPanelLayout';
 import { ChatTaskStatus } from '@/types/constants';
@@ -45,6 +44,8 @@ import {
 } from '@/store/triggerStore';
 import {
   ArrowUpDown,
+  Maximize2,
+  Minimize2,
   Plus,
   RefreshCw,
   SquareChevronRight,
@@ -57,9 +58,8 @@ import Overview, {
   sortTriggersList,
   type TriggerSortKey,
 } from './Project/Triggers';
+import { WorkforceProjectWorkspace } from './Project/workforce';
 
-import BrowserAgentWorkspace from '@/components/BrowserAgentWorkSpace';
-import TerminalAgentWorkspace from '@/components/TerminalAgentWorkspace';
 import { Popover, PopoverContent } from '@/components/ui/popover';
 import {
   ResizableHandle,
@@ -72,9 +72,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { WorkSpaceMenu } from '@/components/WorkSpaceMenu';
-
-import BottomBar from '@/components/BottomBar';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 
 /** Keep in sync with ProjectPageSidebar PROJECT_SIDEBAR_SPRING */
@@ -435,92 +432,9 @@ export default function Home() {
     return <div>{t('triggers.loading')}</div>;
   }
 
-  const renderWorkforceWorkspaceContent = () => {
-    const activeTask = chatStore.activeTaskId
-      ? chatStore.tasks[chatStore.activeTaskId]
-      : null;
-    const activeWorkSpace = activeTask?.activeWorkspace;
-
-    if (!activeTask || !activeWorkSpace) {
-      return (
-        <div className="flex h-full w-full flex-1 items-center justify-center">
-          <div className="relative flex h-full w-full flex-col">
-            <div className="inset-0 rounded-xl pointer-events-none absolute bg-transparent"></div>
-            <div className="relative z-10 h-full w-full">
-              <Workflow taskAssigning={[]} />
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <>
-        {activeTask.taskAssigning?.find(
-          (agent) => agent.agent_id === activeWorkSpace
-        )?.type === 'browser_agent' && (
-          <div className="animate-in fade-in-0 slide-in-from-right-2 flex h-full w-full flex-1 duration-300">
-            <BrowserAgentWorkspace />
-          </div>
-        )}
-        {activeWorkSpace === 'workflow' && (
-          <div className="flex h-full w-full flex-1 items-center justify-center">
-            <div className="relative flex h-full w-full flex-col">
-              <div className="inset-0 rounded-xl pointer-events-none absolute bg-transparent"></div>
-              <div className="relative z-10 h-full w-full">
-                <Workflow taskAssigning={activeTask.taskAssigning || []} />
-              </div>
-            </div>
-          </div>
-        )}
-        {activeTask.taskAssigning?.find(
-          (agent) => agent.agent_id === activeWorkSpace
-        )?.type === 'developer_agent' && (
-          <div className="flex h-full w-full flex-1">
-            <TerminalAgentWorkspace />
-          </div>
-        )}
-        {activeWorkSpace === 'documentWorkSpace' && (
-          <div className="flex h-full w-full flex-1 items-center justify-center">
-            <div className="relative flex h-full w-full flex-col">
-              <div className="blur-bg inset-0 rounded-xl bg-surface-secondary pointer-events-none absolute"></div>
-              <div className="relative z-10 h-full w-full">
-                <Folder />
-              </div>
-            </div>
-          </div>
-        )}
-        {activeTask.taskAssigning?.find(
-          (agent) => agent.agent_id === activeWorkSpace
-        )?.type === 'document_agent' && (
-          <div className="flex h-full w-full flex-1 items-center justify-center">
-            <div className="relative flex h-full w-full flex-col">
-              <div className="blur-bg inset-0 rounded-xl bg-surface-secondary pointer-events-none absolute"></div>
-              <div className="relative z-10 h-full w-full">
-                <Folder
-                  data={activeTask.taskAssigning?.find(
-                    (agent) => agent.agent_id === activeWorkSpace
-                  )}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-        {activeWorkSpace === 'inbox' && (
-          <div className="flex h-full w-full flex-1 items-center justify-center">
-            <div className="relative flex h-full w-full flex-col">
-              <div className="blur-bg inset-0 rounded-xl bg-surface-secondary pointer-events-none absolute"></div>
-              <div className="relative z-10 h-full w-full">
-                <Folder />
-              </div>
-            </div>
-          </div>
-        )}
-      </>
-    );
-  };
-
   const workforcePanelKey = `${chatStore.activeTaskId ?? ''}-${chatStore.tasks[chatStore.activeTaskId ?? '']?.activeWorkspace ?? ''}`;
+  const workforceSplitLayout =
+    activeWorkspaceTab === 'workforce' && isChatBoxVisible;
 
   return (
     <ReactFlowProvider>
@@ -543,8 +457,8 @@ export default function Home() {
                 <>
                   <ResizablePanel
                     ref={chatPanelRef}
-                    defaultSize={30}
-                    minSize={10}
+                    defaultSize={68}
+                    minSize={28}
                     className="min-h-0 h-full min-w-[360px]"
                   >
                     <ChatBox />
@@ -555,214 +469,223 @@ export default function Home() {
                   />
                 </>
               )}
-            <ResizablePanel className="h-full w-full min-w-[600px]">
-              {activeWorkspaceTab === 'workforce' && (
-                <div className="rounded-2xl border-border-tertiary bg-surface-secondary relative flex h-full w-full flex-col border-solid">
-                  <div className="gap-2 px-2 py-1.5 relative z-50 flex w-full shrink-0 items-center justify-between">
-                    <div className="min-w-0 gap-3 flex flex-1 items-center overflow-hidden">
-                      <span className="text-text-heading px-1 text-body-md font-semibold shrink-0">
-                        {t('layout.workers')}
-                      </span>
-                      <div className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden">
-                        <WorkSpaceMenu
-                          embedInToolbar
-                          onToggleChatBox={toggleChatBox}
-                          isChatBoxVisible={isChatBoxVisible}
+            <ResizablePanel
+              defaultSize={workforceSplitLayout ? 32 : 100}
+              minSize={workforceSplitLayout ? 15 : 100}
+              maxSize={workforceSplitLayout ? 52 : 100}
+              className="min-h-0 h-full min-w-[400px] overflow-hidden"
+            >
+              <div className="min-h-0 flex h-full w-full justify-center overflow-hidden">
+                {activeWorkspaceTab === 'workforce' && (
+                  <div className="rounded-2xl border-border-tertiary bg-surface-secondary min-w-0 flex h-full w-full max-w-full flex-col border-solid">
+                    <div className="min-h-0 w-full flex-1">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={workforcePanelKey}
+                          initial={{ opacity: 0, filter: 'blur(4px)' }}
+                          animate={{ opacity: 1, filter: 'blur(0px)' }}
+                          exit={{ opacity: 0, filter: 'blur(4px)' }}
+                          transition={{ duration: 0.2 }}
+                          className="min-h-0 flex h-full w-full flex-col"
+                        >
+                          <WorkforceProjectWorkspace
+                            headerActions={
+                              <div className="gap-2 flex shrink-0 items-center">
+                                <Button
+                                  variant="primary"
+                                  size="sm"
+                                  className="w-24 rounded-lg items-center justify-center"
+                                  onClick={() => setAddWorkerDialogOpen(true)}
+                                >
+                                  <Plus />
+                                  {t('triggers.add')}
+                                </Button>
+                                <TooltipSimple
+                                  content={
+                                    isChatBoxVisible
+                                      ? 'Hide chat panel'
+                                      : 'Show chat panel'
+                                  }
+                                  delayDuration={300}
+                                  side="bottom"
+                                >
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="opacity-70"
+                                    onClick={toggleChatBox}
+                                  >
+                                    {isChatBoxVisible ? (
+                                      <Maximize2 className="h-4 w-4" />
+                                    ) : (
+                                      <Minimize2 className="h-4 w-4" />
+                                    )}
+                                  </Button>
+                                </TooltipSimple>
+                              </div>
+                            }
+                            fileInputRef={fileInputRef}
+                            onFileUpload={handleFileUpload}
+                            isChatBoxVisible={isChatBoxVisible}
+                          />
+                          <AddWorker
+                            isOpen={addWorkerDialogOpen}
+                            onOpenChange={setAddWorkerDialogOpen}
+                          />
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                )}
+                {activeWorkspaceTab === 'inbox' && (
+                  <div className="rounded-2xl border-border-tertiary bg-surface-secondary flex h-full w-full flex-col overflow-hidden border-solid">
+                    <div className="min-h-0 w-full flex-1">
+                      <div className="flex h-full w-full flex-1 items-center justify-center">
+                        <div className="relative z-10 h-full w-full">
+                          <Folder />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {activeWorkspaceTab === 'triggers' && (
+                  <div className="rounded-2xl border-border-tertiary bg-surface-secondary flex h-full w-full flex-col border-solid">
+                    <div className="gap-2 px-2 py-2 flex w-full shrink-0 items-center justify-between">
+                      <div className="text-text-heading min-w-0 gap-2 px-1 text-body-md font-bold flex flex-1 items-center">
+                        <span className="truncate">{t('triggers.title')}</span>
+                        {wsConnectionStatus !== 'connected' && (
+                          <Popover>
+                            <PopoverPrimitive.Trigger asChild>
+                              <button
+                                type="button"
+                                className="text-icon-secondary hover:bg-surface-tertiary h-8 w-8 rounded-md flex shrink-0 items-center justify-center transition-colors"
+                                aria-label="Reconnect to trigger listener"
+                              >
+                                <RefreshCw
+                                  className={`h-3 w-3 ${wsConnectionStatus === 'connecting' ? 'animate-spin' : ''}`}
+                                />
+                              </button>
+                            </PopoverPrimitive.Trigger>
+                            <PopoverContent
+                              className="w-64 p-4"
+                              side="bottom"
+                              align="start"
+                            >
+                              <div className="gap-3 flex flex-col">
+                                <p className="text-body-sm text-text-body">
+                                  Reconnect to trigger listener
+                                </p>
+                                <Button
+                                  variant="primary"
+                                  size="sm"
+                                  className="w-full items-center justify-center"
+                                  onClick={triggerReconnect}
+                                >
+                                  <RefreshCw
+                                    className={`mr-2 h-4 w-4 ${wsConnectionStatus === 'connecting' ? 'animate-spin' : ''}`}
+                                  />
+                                  Reconnect
+                                </Button>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                        <ConnectionStatusIcon status={wsConnectionStatus} />
+                      </div>
+                      <div className="gap-2 flex shrink-0 items-center">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="font-semibold opacity-50"
+                            >
+                              {triggerSortLabel}
+                              <ArrowUpDown className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                              onClick={() => setTriggerSortBy('createdAt')}
+                            >
+                              {t('triggers.created-time')}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() =>
+                                setTriggerSortBy('lastExecutionTime')
+                              }
+                            >
+                              {t('triggers.last-execution-label')}
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          className="rounded-lg items-center justify-center"
+                          onClick={() => setTriggerDialogOpen(true)}
+                        >
+                          <Plus />
+                          {t('triggers.create')}
+                        </Button>
+                        <TooltipSimple
+                          content={
+                            triggerExecutionLogsOpen
+                              ? t('triggers.fold-execution-logs')
+                              : t('triggers.open-execution-logs')
+                          }
+                          delayDuration={300}
+                          side="bottom"
+                        >
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="opacity-70"
+                            disabled={sortedTriggersForHeader.length === 0}
+                            onClick={() => {
+                              if (triggerExecutionLogsOpen) {
+                                setTriggerExecutionLogsOpen(false);
+                                return;
+                              }
+                              if (
+                                !triggerSelectedId &&
+                                sortedTriggersForHeader.length > 0
+                              ) {
+                                setTriggerSelectedId(
+                                  sortedTriggersForHeader[0].id
+                                );
+                              }
+                              setTriggerExecutionLogsOpen(true);
+                            }}
+                          >
+                            {triggerExecutionLogsOpen ? (
+                              <SquareChevronRight className="h-4 w-4" />
+                            ) : (
+                              <SquareCode className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </TooltipSimple>
+                        <TriggerDialog
+                          selectedTrigger={null}
+                          isOpen={triggerDialogOpen}
+                          onOpenChange={setTriggerDialogOpen}
                         />
                       </div>
                     </div>
-                    <div className="gap-2 flex shrink-0 items-center">
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        className="w-24 rounded-lg items-center justify-center"
-                        onClick={() => setAddWorkerDialogOpen(true)}
-                      >
-                        <Plus />
-                        {t('triggers.add')}
-                      </Button>
-                      <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleFileUpload}
-                        multiple
-                        className="hidden"
-                      />
-                      <AddWorker
-                        isOpen={addWorkerDialogOpen}
-                        onOpenChange={setAddWorkerDialogOpen}
+                    <div
+                      className={`min-h-0 w-full flex-1 ${wsConnectionStatus === 'disconnected' ? 'pointer-events-none opacity-50 grayscale' : ''}`}
+                    >
+                      <Overview
+                        sortBy={triggerSortBy}
+                        selectedTriggerId={triggerSelectedId}
+                        onSelectedTriggerIdChange={setTriggerSelectedId}
+                        isExecutionLogsOpen={triggerExecutionLogsOpen}
+                        onExecutionLogsOpenChange={setTriggerExecutionLogsOpen}
                       />
                     </div>
                   </div>
-                  <div className="min-h-0 w-full flex-1">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={workforcePanelKey}
-                        initial={{ opacity: 0, filter: 'blur(4px)' }}
-                        animate={{ opacity: 1, filter: 'blur(0px)' }}
-                        exit={{ opacity: 0, filter: 'blur(4px)' }}
-                        transition={{ duration: 0.2 }}
-                        className="h-full w-full"
-                      >
-                        {renderWorkforceWorkspaceContent()}
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
-                  <div className="inset-x-0 bottom-0 pointer-events-none absolute z-50">
-                    <div className="pointer-events-auto">
-                      <BottomBar />
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeWorkspaceTab === 'inbox' && (
-                <div className="rounded-2xl border-border-tertiary bg-surface-secondary flex h-full w-full flex-col overflow-hidden border-solid">
-                  <div className="min-h-0 w-full flex-1">
-                    <div className="flex h-full w-full flex-1 items-center justify-center">
-                      <div className="relative z-10 h-full w-full">
-                        <Folder />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeWorkspaceTab === 'triggers' && (
-                <div className="rounded-2xl border-border-tertiary bg-surface-secondary flex h-full w-full flex-col border-solid">
-                  <div className="gap-2 px-2 py-2 flex w-full shrink-0 items-center justify-between">
-                    <div className="text-text-heading min-w-0 gap-2 px-1 text-body-md font-bold flex flex-1 items-center">
-                      <span className="truncate">{t('triggers.title')}</span>
-                      {wsConnectionStatus !== 'connected' && (
-                        <Popover>
-                          <PopoverPrimitive.Trigger asChild>
-                            <button
-                              type="button"
-                              className="text-icon-secondary hover:bg-surface-tertiary h-8 w-8 rounded-md flex shrink-0 items-center justify-center transition-colors"
-                              aria-label="Reconnect to trigger listener"
-                            >
-                              <RefreshCw
-                                className={`h-3 w-3 ${wsConnectionStatus === 'connecting' ? 'animate-spin' : ''}`}
-                              />
-                            </button>
-                          </PopoverPrimitive.Trigger>
-                          <PopoverContent
-                            className="w-64 p-4"
-                            side="bottom"
-                            align="start"
-                          >
-                            <div className="gap-3 flex flex-col">
-                              <p className="text-body-sm text-text-body">
-                                Reconnect to trigger listener
-                              </p>
-                              <Button
-                                variant="primary"
-                                size="sm"
-                                className="w-full items-center justify-center"
-                                onClick={triggerReconnect}
-                              >
-                                <RefreshCw
-                                  className={`mr-2 h-4 w-4 ${wsConnectionStatus === 'connecting' ? 'animate-spin' : ''}`}
-                                />
-                                Reconnect
-                              </Button>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      )}
-                      <ConnectionStatusIcon status={wsConnectionStatus} />
-                    </div>
-                    <div className="gap-2 flex shrink-0 items-center">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="font-semibold opacity-50"
-                          >
-                            {triggerSortLabel}
-                            <ArrowUpDown className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem
-                            onClick={() => setTriggerSortBy('createdAt')}
-                          >
-                            {t('triggers.created-time')}
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() =>
-                              setTriggerSortBy('lastExecutionTime')
-                            }
-                          >
-                            {t('triggers.last-execution-label')}
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        className="rounded-lg items-center justify-center"
-                        onClick={() => setTriggerDialogOpen(true)}
-                      >
-                        <Plus />
-                        {t('triggers.create')}
-                      </Button>
-                      <TooltipSimple
-                        content={
-                          triggerExecutionLogsOpen
-                            ? t('triggers.fold-execution-logs')
-                            : t('triggers.open-execution-logs')
-                        }
-                        delayDuration={300}
-                        side="bottom"
-                      >
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="opacity-70"
-                          disabled={sortedTriggersForHeader.length === 0}
-                          onClick={() => {
-                            if (triggerExecutionLogsOpen) {
-                              setTriggerExecutionLogsOpen(false);
-                              return;
-                            }
-                            if (
-                              !triggerSelectedId &&
-                              sortedTriggersForHeader.length > 0
-                            ) {
-                              setTriggerSelectedId(
-                                sortedTriggersForHeader[0].id
-                              );
-                            }
-                            setTriggerExecutionLogsOpen(true);
-                          }}
-                        >
-                          {triggerExecutionLogsOpen ? (
-                            <SquareChevronRight className="h-4 w-4" />
-                          ) : (
-                            <SquareCode className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </TooltipSimple>
-                      <TriggerDialog
-                        selectedTrigger={null}
-                        isOpen={triggerDialogOpen}
-                        onOpenChange={setTriggerDialogOpen}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`min-h-0 w-full flex-1 ${wsConnectionStatus === 'disconnected' ? 'pointer-events-none opacity-50 grayscale' : ''}`}
-                  >
-                    <Overview
-                      sortBy={triggerSortBy}
-                      selectedTriggerId={triggerSelectedId}
-                      onSelectedTriggerIdChange={setTriggerSelectedId}
-                      isExecutionLogsOpen={triggerExecutionLogsOpen}
-                      onExecutionLogsOpenChange={setTriggerExecutionLogsOpen}
-                    />
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
             </ResizablePanel>
             {activeWorkspaceTab === 'workforce' &&
               isChatBoxVisible &&
@@ -774,8 +697,8 @@ export default function Home() {
                   />
                   <ResizablePanel
                     ref={chatPanelRef}
-                    defaultSize={30}
-                    minSize={10}
+                    defaultSize={68}
+                    minSize={28}
                     className="min-h-0 h-full min-w-[360px]"
                   >
                     <ChatBox />
