@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { fetchDelete, fetchGet, fetchPost } from '@/api/http';
 import AlertDialog from '@/components/ui/alertDialog';
@@ -332,7 +332,7 @@ export default function Cookies() {
         <div className="w-full text-center text-label-xs text-text-label">
           For more information, check out our
           <a
-            href="https://www.eigent.ai/privacy-policy"
+            href="https://www.stitchboat.ai/privacy-policy"
             target="_blank"
             className="ml-1 text-text-information underline"
             rel="noreferrer"

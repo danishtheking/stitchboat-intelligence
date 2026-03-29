@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import asyncio
 import atexit
@@ -47,7 +47,7 @@ os.environ["PYTHONIOENCODING"] = "utf-8"
 app_logger = logging.getLogger("main")
 
 # Log application startup
-app_logger.info("Starting Eigent Multi-Agent System API")
+app_logger.info("Starting Stitchboat Intelligence Multi-Agent System API")
 app_logger.info(f"Python encoding: {os.environ.get('PYTHONIOENCODING')}")
 app_logger.info(f"Environment: {os.environ.get('ENVIRONMENT', 'development')}")
 

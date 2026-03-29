@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import {
   act,
@@ -99,7 +99,7 @@ describe('ChatBox Integration Tests - Different ChatStore Configurations', () =>
         </TestWrapper>
       );
 
-      expect(screen.getByText(/layout.welcome-to-eigent/i)).toBeInTheDocument();
+      expect(screen.getByText(/layout.welcome-to-stitchboat/i)).toBeInTheDocument();
       expect(
         screen.getByText(/layout.how-can-i-help-you/i)
       ).toBeInTheDocument();
@@ -159,7 +159,7 @@ describe('ChatBox Integration Tests - Different ChatStore Configurations', () =>
         expect(calculatorElements.length).toBeGreaterThanOrEqual(1);
         // The component should show task breakdown
         expect(
-          screen.queryByText(/layout.welcome-to-eigent/i)
+          screen.queryByText(/layout.welcome-to-stitchboat/i)
         ).not.toBeInTheDocument();
       });
     });
@@ -204,7 +204,7 @@ describe('ChatBox Integration Tests - Different ChatStore Configurations', () =>
           )
         ).toBeInTheDocument();
         expect(
-          screen.queryByText(/layout.welcome-to-eigent/i)
+          screen.queryByText(/layout.welcome-to-stitchboat/i)
         ).not.toBeInTheDocument();
       });
     });
@@ -241,7 +241,7 @@ describe('ChatBox Integration Tests - Different ChatStore Configurations', () =>
         // Should show some loading indicator - adjust this based on actual UI
         // For now, just check that we don't show the welcome screen
         expect(
-          screen.queryByText(/layout.welcome-to-eigent/i)
+          screen.queryByText(/layout.welcome-to-stitchboat/i)
         ).not.toBeInTheDocument();
       });
     });
@@ -377,7 +377,7 @@ describe('ChatBox Integration Tests - Different ChatStore Configurations', () =>
 
       // Should show some content (either welcome screen or handle the error gracefully)
       expect(
-        screen.getByText(/layout.welcome-to-eigent/i) ||
+        screen.getByText(/layout.welcome-to-stitchboat/i) ||
           screen.getByText(/error/i) ||
           screen.getByRole('main')
       ).toBeTruthy();
@@ -395,7 +395,7 @@ describe('ChatBox Integration Tests - Different ChatStore Configurations', () =>
           </TestWrapper>
         );
         expect(
-          screen.getByText(/layout.welcome-to-eigent/i)
+          screen.getByText(/layout.welcome-to-stitchboat/i)
         ).toBeInTheDocument();
         return;
       }

@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { BrowserWindow, app } from 'electron';
 import fs from 'fs';
@@ -675,21 +675,21 @@ export class FileReader {
     if (projectId) {
       dirPath = path.join(
         userHome,
-        'eigent',
+        'stitchboat',
         safeEmail,
         `project_${projectId}`,
         `task_${taskId}`
       );
     } else {
       // First try project-based structure (scan for existing projects)
-      const userDir = path.join(userHome, 'eigent', safeEmail);
+      const userDir = path.join(userHome, 'stitchboat', safeEmail);
       const projectBasedPath = this.findTaskInProjects(userDir, taskId);
 
       if (projectBasedPath) {
         dirPath = projectBasedPath;
       } else {
         // Fallback to legacy direct task structure
-        dirPath = path.join(userHome, 'eigent', safeEmail, `task_${taskId}`);
+        dirPath = path.join(userHome, 'stitchboat', safeEmail, `task_${taskId}`);
       }
     }
 
@@ -726,21 +726,21 @@ export class FileReader {
     if (projectId) {
       dirPath = path.join(
         userHome,
-        'eigent',
+        'stitchboat',
         safeEmail,
         `project_${projectId}`,
         `task_${taskId}`
       );
       logPath = path.join(
         userHome,
-        '.eigent',
+        '.stitchboat',
         safeEmail,
         `project_${projectId}`,
         `task_${taskId}`
       );
     } else {
       // First try project-based structure
-      const userDir = path.join(userHome, 'eigent', safeEmail);
+      const userDir = path.join(userHome, 'stitchboat', safeEmail);
       const projectBasedPath = this.findTaskInProjects(userDir, taskId);
 
       if (projectBasedPath) {
@@ -750,18 +750,18 @@ export class FileReader {
         if (projectMatch) {
           logPath = path.join(
             userHome,
-            '.eigent',
+            '.stitchboat',
             safeEmail,
             projectMatch[0],
             `task_${taskId}`
           );
         } else {
-          logPath = path.join(userHome, '.eigent', safeEmail, `task_${taskId}`);
+          logPath = path.join(userHome, '.stitchboat', safeEmail, `task_${taskId}`);
         }
       } else {
         // Fallback to legacy direct task structure
-        dirPath = path.join(userHome, 'eigent', safeEmail, `task_${taskId}`);
-        logPath = path.join(userHome, '.eigent', safeEmail, `task_${taskId}`);
+        dirPath = path.join(userHome, 'stitchboat', safeEmail, `task_${taskId}`);
+        logPath = path.join(userHome, '.stitchboat', safeEmail, `task_${taskId}`);
       }
     }
 
@@ -788,7 +788,7 @@ export class FileReader {
       .replace(/[\\/*?:"<>|\s]/g, '_')
       .replace(/^\.+|\.+$/g, '');
     const userHome = app.getPath('home');
-    const dirPath = path.join(userHome, 'eigent', safeEmail);
+    const dirPath = path.join(userHome, 'stitchboat', safeEmail);
 
     try {
       if (!fs.existsSync(dirPath)) {
@@ -813,7 +813,7 @@ export class FileReader {
     const userHome = app.getPath('home');
     const projectPath = path.join(
       userHome,
-      'eigent',
+      'stitchboat',
       safeEmail,
       `project_${projectId}`
     );
@@ -841,7 +841,7 @@ export class FileReader {
       .replace(/[\\/*?:"<>|\s]/g, '_')
       .replace(/^\.+|\.+$/g, '');
     const userHome = app.getPath('home');
-    const userDir = path.join(userHome, 'eigent', safeEmail);
+    const userDir = path.join(userHome, 'stitchboat', safeEmail);
 
     try {
       if (!fs.existsSync(userDir)) {
@@ -899,7 +899,7 @@ export class FileReader {
     const userHome = app.getPath('home');
     const projectPath = path.join(
       userHome,
-      'eigent',
+      'stitchboat',
       safeEmail,
       `project_${projectId}`
     );
@@ -958,13 +958,13 @@ export class FileReader {
     // Source path (legacy structure)
     const sourcePath = path.join(
       userHome,
-      'eigent',
+      'stitchboat',
       safeEmail,
       `task_${taskId}`
     );
     const sourceLogPath = path.join(
       userHome,
-      '.eigent',
+      '.stitchboat',
       safeEmail,
       `task_${taskId}`
     );
@@ -972,14 +972,14 @@ export class FileReader {
     // Destination paths (project structure)
     const projectPath = path.join(
       userHome,
-      'eigent',
+      'stitchboat',
       safeEmail,
       `project_${projectId}`
     );
     const destPath = path.join(projectPath, `task_${taskId}`);
     const destLogPath = path.join(
       userHome,
-      '.eigent',
+      '.stitchboat',
       safeEmail,
       `project_${projectId}`,
       `task_${taskId}`
@@ -1025,7 +1025,7 @@ export class FileReader {
     const userHome = app.getPath('home');
     const projectPath = path.join(
       userHome,
-      'eigent',
+      'stitchboat',
       safeEmail,
       `project_${projectId}`
     );

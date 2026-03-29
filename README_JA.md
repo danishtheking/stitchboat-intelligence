@@ -1,15 +1,15 @@
 <div align="center"><a name="readme-top"></a>
 
-[![][image-head]][eigent-site]
+[![][image-head]][stitchboat-site]
 
-[![][image-seperator]][eigent-site]
+[![][image-seperator]][stitchboat-site]
 
-### Eigent: 卓越した生産性を実現するオープンソースのコワークデスクトップ
+### Stitchboat Intelligence: 卓越した生産性を実現するオープンソースのコワークデスクトップ
 
 <!-- SHIELD GROUP -->
 
-[![][download-shield]][eigent-download]
-[![][github-star]][eigent-github]
+[![][download-shield]][stitchboat-download]
+[![][github-star]][stitchboat-github]
 [![][social-x-shield]][social-x-link]
 [![][discord-image]][discord-url]<br>
 [![Reddit][reddit-image]][reddit-url]
@@ -23,12 +23,12 @@
 <hr/>
 <div align="center">
 
-[English](./README.md) · [Português](./README_PT-BR.md) · [简体中文](./README_CN.md) · **日本語** · [公式サイト][eigent-site] · [ドキュメント][docs-site] · [フィードバック][github-issue-link]
+[English](./README.md) · [Português](./README_PT-BR.md) · [简体中文](./README_CN.md) · **日本語** · [公式サイト][stitchboat-site] · [ドキュメント][docs-site] · [フィードバック][github-issue-link]
 
 </div>
 <br/>
 
-**Eigent**は、オープンソースのコワークデスクトップアプリケーションです。複雑なワークフローを自動化タスクに変換できるカスタムAIワークフォースを構築、管理、デプロイする力を提供します。先進的なオープンソース Cowork製品として、EigentはオープンソースコラボレーションとAI駆動の自動化の最良の部分を組み合わせています。
+**Stitchboat Intelligence**は、オープンソースのコワークデスクトップアプリケーションです。複雑なワークフローを自動化タスクに変換できるカスタムAIワークフォースを構築、管理、デプロイする力を提供します。先進的なオープンソース Cowork製品として、Stitchboat IntelligenceはオープンソースコラボレーションとAI駆動の自動化の最良の部分を組み合わせています。
 
 [CAMEL-AI][camel-site]の評価の高いオープンソースプロジェクトを基盤として構築されており、**マルチエージェントワークフォース**を導入し、並列実行、カスタマイズ、プライバシー保護を通じて**生産性を向上**させます。
 
@@ -81,11 +81,11 @@
 
 ## **🚀 はじめに - オープンソース Cowork**
 
-> **🔓 オープンに開発** — Eigentは初日から**100%オープンソース**です。すべての機能、すべてのコミット、すべての決定が透明です。最高のAIツールは、閉じられたドアの後ろではなく、コミュニティと共にオープンに構築されるべきだと信じています。
+> **🔓 オープンに開発** — Stitchboat Intelligenceは初日から**100%オープンソース**です。すべての機能、すべてのコミット、すべての決定が透明です。最高のAIツールは、閉じられたドアの後ろではなく、コミュニティと共にオープンに構築されるべきだと信じています。
 
 ### 🏠 ローカルデプロイメント（推奨）
 
-Eigentを実行する推奨方法 — データを完全に制御でき、クラウドアカウント不要で完全にスタンドアロンで動作します。
+Stitchboat Intelligenceを実行する推奨方法 — データを完全に制御でき、クラウドアカウント不要で完全にスタンドアロンで動作します。
 
 👉 **[ローカルデプロイメント完全ガイド](./server/README_EN.md)**
 
@@ -107,13 +107,13 @@ Eigentを実行する推奨方法 — データを完全に制御でき、クラ
 #### 手順
 
 ```bash
-git clone https://github.com/eigent-ai/eigent.git
-cd eigent
+git clone https://github.com/danishtheking/stitchboat.git
+cd stitchboat
 npm install
 npm run dev
 ```
 
-> 注：このモードはEigentクラウドサービスに接続し、アカウント登録が必要です。完全にスタンドアロンで使用する場合は、代わりに[ローカルデプロイメント](#-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E6%8E%A8%E5%A5%A8)を使用してください。
+> 注：このモードはStitchboat Intelligenceクラウドサービスに接続し、アカウント登録が必要です。完全にスタンドアロンで使用する場合は、代わりに[ローカルデプロイメント](#-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88%E6%8E%A8%E5%A5%A8)を使用してください。
 
 #### 依存関係の更新
 
@@ -136,11 +136,11 @@ uv sync
 - **スケーラブルなエンタープライズデプロイメント**
 - **交渉可能なSLA** & 導入サービス
 
-📧 詳細については、[info@eigent.ai](mailto:info@eigent.ai) までお問い合わせください。
+📧 詳細については、[info@stitchboat.ai](mailto:info@stitchboat.ai) までお問い合わせください。
 
 ### ☁️ クラウドバージョン
 
-マネージドインフラストラクチャを好むチーム向けに、クラウドプラットフォームも提供しています。セットアップの複雑さなしにEigentのマルチエージェントAI機能を体験する最速の方法です。モデル、API、クラウドストレージをホストし、Eigentがシームレスに動作することを保証します。
+マネージドインフラストラクチャを好むチーム向けに、クラウドプラットフォームも提供しています。セットアップの複雑さなしにStitchboat IntelligenceのマルチエージェントAI機能を体験する最速の方法です。モデル、API、クラウドストレージをホストし、Stitchboat Intelligenceがシームレスに動作することを保証します。
 
 - **即時アクセス** - 数分でマルチエージェントワークフローの構築を開始。
 - **マネージドインフラストラクチャ** - スケーリング、更新、メンテナンスを私たちが処理。
@@ -148,58 +148,58 @@ uv sync
 
 <br/>
 
-[![image-public-beta]][eigent-download]
+[![image-public-beta]][stitchboat-download]
 
 <div align="right">
-<a href="https://www.eigent.ai/download">Eigent.aiで始める →</a>
+<a href="https://www.stitchboat.ai/download">Stitchboat Intelligenceで始める →</a>
 </div>
 
 ## **✨ 主な機能 - オープンソース Cowork**
 
-Eigentのオープンソース Coworkの強力な機能で卓越した生産性の可能性を最大限に引き出しましょう — シームレスな統合、よりスマートなタスク実行、無限の自動化のために構築されています。
+Stitchboat Intelligenceのオープンソース Coworkの強力な機能で卓越した生産性の可能性を最大限に引き出しましょう — シームレスな統合、よりスマートなタスク実行、無限の自動化のために構築されています。
 
 ### 🏭 ワークフォース
 
-複雑なタスクを解決するために協力する専門AIエージェントのチームを活用します。Eigentのオープンソース Coworkは動的にタスクを分解し、複数のエージェントを**並列で**動作させます。
+複雑なタスクを解決するために協力する専門AIエージェントのチームを活用します。Stitchboat Intelligenceのオープンソース Coworkは動的にタスクを分解し、複数のエージェントを**並列で**動作させます。
 
-Eigentは以下のエージェントワーカーを事前定義しています：
+Stitchboat Intelligenceは以下のエージェントワーカーを事前定義しています：
 
 - **Developer Agent:** コードを書いて実行し、ターミナルコマンドを実行します。
 - **Browser Agent:** ウェブを検索し、コンテンツを抽出します。
 - **Document Agent:** ドキュメントを作成・管理します。
 - **Multi-Modal Agent:** 画像と音声を処理します。
 
-![Workforce](https://eigent-ai.github.io/.github/assets/gif/feature_dynamic_workforce.gif)
+![Workforce](https://danishtheking.github.io/.github/assets/gif/feature_dynamic_workforce.gif)
 
 <br/>
 
 ### 🧠 包括的なモデルサポート
 
-お好みのモデルでEigent オープンソース Coworkデスクトップをローカルにデプロイできます。
+お好みのモデルでStitchboat Intelligence オープンソース Coworkデスクトップをローカルにデプロイできます。
 
-![Model](https://eigent-ai.github.io/.github/assets/gif/feature_local_model.gif)
+![Model](https://danishtheking.github.io/.github/assets/gif/feature_local_model.gif)
 
 <br/>
 
 ### 🔌 MCPツール統合
 
-Eigentには大規模な組み込み\*\*Model Context Protocol（MCP）\*\*ツール（ウェブブラウジング、コード実行、Notion、Google suite、Slackなど）が付属しており、**独自のツールをインストール**することもできます。エージェントにシナリオに適したツールを装備させ、内部APIやカスタム関数を統合して機能を強化できます。
+Stitchboat Intelligenceには大規模な組み込み\*\*Model Context Protocol（MCP）\*\*ツール（ウェブブラウジング、コード実行、Notion、Google suite、Slackなど）が付属しており、**独自のツールをインストール**することもできます。エージェントにシナリオに適したツールを装備させ、内部APIやカスタム関数を統合して機能を強化できます。
 
-![MCP](https://eigent-ai.github.io/.github/assets/gif/feature_add_mcps.gif)
+![MCP](https://danishtheking.github.io/.github/assets/gif/feature_add_mcps.gif)
 
 <br/>
 
 ### ✋ ヒューマンインザループ
 
-タスクが行き詰まったり不確実性に遭遇した場合、Eigentは自動的に人間の入力を要求します。
+タスクが行き詰まったり不確実性に遭遇した場合、Stitchboat Intelligenceは自動的に人間の入力を要求します。
 
-![Human-in-the-loop](https://eigent-ai.github.io/.github/assets/gif/feature_human_in_the_loop.gif)
+![Human-in-the-loop](https://danishtheking.github.io/.github/assets/gif/feature_human_in_the_loop.gif)
 
 <br/>
 
 ### 👐 100%オープンソース
 
-Eigentは完全にオープンソースです。コードをダウンロード、検査、修正でき、透明性を確保し、マルチエージェントイノベーションのためのコミュニティ主導のエコシステムを育成します。
+Stitchboat Intelligenceは完全にオープンソースです。コードをダウンロード、検査、修正でき、透明性を確保し、マルチエージェントイノベーションのためのコミュニティ主導のエコシステムを育成します。
 
 ![Opensource][image-opensource]
 
@@ -207,9 +207,9 @@ Eigentは完全にオープンソースです。コードをダウンロード�
 
 ## 🧩 ユースケース - オープンソース Cowork
 
-世界中の開発者がEigentのオープンソース Cowork機能を活用して、さまざまな業界で複雑なワークフローを自動化し、生産性を向上させている方法をご覧ください。
+世界中の開発者がStitchboat Intelligenceのオープンソース Cowork機能を活用して、さまざまな業界で複雑なワークフローを自動化し、生産性を向上させている方法をご覧ください。
 
-### 1. パームスプリングステニス旅行の旅程とSlackサマリー [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTM0MzUxNTEzMzctNzExMyI.aIeysw.MUeG6ZcBxI1GqvPDvn4dcv-CDWw__1753435151337-7113)
+### 1. パームスプリングステニス旅行の旅程とSlackサマリー [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTM0MzUxNTEzMzctNzExMyI.aIeysw.MUeG6ZcBxI1GqvPDvn4dcv-CDWw__1753435151337-7113)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>私たちは2人のテニスファンで、パームスプリングス2026のテニストーナメントを見に行きたいです...</kbd></summary>
@@ -219,7 +219,7 @@ Eigentは完全にオープンソースです。コードをダウンロード�
 
 <br>
 
-### 2. CSVバンクデータからQ2レポートを生成 [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTM1MjY4OTE4MDgtODczOSI.aIjJmQ.WTdoX9mATwrcBr_w53BmGEHPo8U__1753526891808-8739)
+### 2. CSVバンクデータからQ2レポートを生成 [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTM1MjY4OTE4MDgtODczOSI.aIjJmQ.WTdoX9mATwrcBr_w53BmGEHPo8U__1753526891808-8739)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>銀行振込記録ファイルに基づいてQ2財務諸表を準備してください...</kbd></summary>
@@ -229,17 +229,17 @@ Eigentは完全にオープンソースです。コードをダウンロード�
 
 <br>
 
-### 3. 英国ヘルスケア市場調査レポートの自動化 [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTMzOTM1NTg3OTctODcwNyI.aIey-Q.Jh9QXzYrRYarY0kz_qsgoj3ewX0__1753393558797-8707)
+### 3. 英国ヘルスケア市場調査レポートの自動化 [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTMzOTM1NTg3OTctODcwNyI.aIey-Q.Jh9QXzYrRYarY0kz_qsgoj3ewX0__1753393558797-8707)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>次の会社の計画をサポートするために、英国のヘルスケア業界を分析してください...</kbd></summary>
 <br>
-次の会社の計画をサポートするために、英国のヘルスケア業界を分析してください。現在のトレンド、成長予測、関連規制を含む包括的な市場概要を提供してください。市場内の主要な機会、ギャップ、またはサービスが行き届いていないセグメントのトップ5-10を特定してください。すべての調査結果を、よく構成されたプロフェッショナルなHTMLレポートで提示してください。その後、タスクが完了したらSlackの#eigentr-product-testチャンネルにメッセージを送信し、チームメイトとレポート内容を共有してください。
+次の会社の計画をサポートするために、英国のヘルスケア業界を分析してください。現在のトレンド、成長予測、関連規制を含む包括的な市場概要を提供してください。市場内の主要な機会、ギャップ、またはサービスが行き届いていないセグメントのトップ5-10を特定してください。すべての調査結果を、よく構成されたプロフェッショナルなHTMLレポートで提示してください。その後、タスクが完了したらSlackの#stitchboatr-product-testチャンネルにメッセージを送信し、チームメイトとレポート内容を共有してください。
 </details>
 
 <br>
 
-### 4. ドイツの電動スケートボード市場実現可能性調査 [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTM2NTI4MjY3ODctNjk2Ig.aIjGiA.t-qIXxk_BZ4ENqa-yVIm0wMVyXU__1753652826787-696)
+### 4. ドイツの電動スケートボード市場実現可能性調査 [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTM2NTI4MjY3ODctNjk2Ig.aIjGiA.t-qIXxk_BZ4ENqa-yVIm0wMVyXU__1753652826787-696)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>私たちは高級電動スケートボードを製造する会社で、ドイツ市場への参入を検討しています...</kbd></summary>
@@ -254,7 +254,7 @@ Eigentは完全にオープンソースです。コードをダウンロード�
 
 <br>
 
-### 5. Workforce Multiagentローンチ向けSEO監査 [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTM2OTk5NzExNDQtNTY5NiI.aIex0w.jc_NIPmfIf9e3zGt-oG9fbMi3K4__1753699971144-5696)
+### 5. Workforce Multiagentローンチ向けSEO監査 [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTM2OTk5NzExNDQtNTY5NiI.aIex0w.jc_NIPmfIf9e3zGt-oG9fbMi3K4__1753699971144-5696)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>新しいWorkforce Multiagent製品のローンチをサポートするために...</kbd></summary>
@@ -264,7 +264,7 @@ Eigentは完全にオープンソースです。コードをダウンロード�
 
 <br>
 
-### 6. ダウンロード内の重複ファイルを特定 [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTM3NjAzODgxNzEtMjQ4Ig.aIhKLQ.epOG--0Nj0o4Bqjtdqm9OZdaqRQ__1753760388171-248)
+### 6. ダウンロード内の重複ファイルを特定 [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTM3NjAzODgxNzEtMjQ4Ig.aIhKLQ.epOG--0Nj0o4Bqjtdqm9OZdaqRQ__1753760388171-248)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>Documentsディレクトリにmydocsというフォルダがあります...</kbd></summary>
@@ -274,7 +274,7 @@ Documentsディレクトリにmydocsというフォルダがあります。ス�
 
 <br>
 
-### 7. PDFに署名を追加 [リプレイ ▶️](https://www.eigent.ai/download?share_token=IjE3NTQwOTU0ODM0NTItNTY2MSI.aJCHrA.Mg5yPOFqj86H_GQvvRNditzepXc__1754095483452-5661)
+### 7. PDFに署名を追加 [リプレイ ▶️](https://www.stitchboat.ai/download?share_token=IjE3NTQwOTU0ODM0NTItNTY2MSI.aJCHrA.Mg5yPOFqj86H_GQvvRNditzepXc__1754095483452-5661)
 
 <details>
 <summary><strong>プロンプト:</strong> <kbd>この署名画像をPDFの署名エリアに追加してください...</kbd></summary>
@@ -286,7 +286,7 @@ Documentsディレクトリにmydocsというフォルダがあります。ス�
 
 ## 🛠️ 技術スタック
 
-Eigent オープンソース Coworkデスクトップは、スケーラビリティ、パフォーマンス、拡張性を確保する最新の信頼性の高いテクノロジーで構築されています。
+Stitchboat Intelligence オープンソース Coworkデスクトップは、スケーラビリティ、パフォーマンス、拡張性を確保する最新の信頼性の高いテクノロジーで構築されています。
 
 ### バックエンド
 
@@ -309,7 +309,7 @@ Eigent オープンソース Coworkデスクトップは、スケーラビリテ
 
 > [!IMPORTANT]
 >
-> **Eigentにスター**を付けると、GitHubからすべてのリリース通知を遅延なく受け取れます ⭐️
+> **Stitchboat Intelligenceにスター**を付けると、GitHubからすべてのリリース通知を遅延なく受け取れます ⭐️
 
 ![][image-star-us]
 
@@ -329,12 +329,12 @@ Eigent オープンソース Coworkデスクトップは、スケーラビリテ
 
 ## [🤝 コントリビューション][contribution-link]
 
-私たちは信頼を築き、あらゆる形式のオープンソースコラボレーションを歓迎することを信じています。あなたの創造的な貢献が`Eigent`のイノベーションを推進します。GitHubのissuesとプロジェクトを探索して、あなたの力を見せてください 🤝❤️ [コントリビューションガイドライン][contribution-link]
+私たちは信頼を築き、あらゆる形式のオープンソースコラボレーションを歓迎することを信じています。あなたの創造的な貢献が`Stitchboat Intelligence`のイノベーションを推進します。GitHubのissuesとプロジェクトを探索して、あなたの力を見せてください 🤝❤️ [コントリビューションガイドライン][contribution-link]
 
 ## Contributors
 
-<a href="https://github.com/eigent-ai/eigent/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=eigent-ai/eigent" />
+<a href="https://github.com/danishtheking/stitchboat/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=danishtheking/stitchboat" />
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
@@ -343,7 +343,7 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 ## [❤️ スポンサー][sponsor-link]
 
-Eigentは[CAMEL-AI.org][camel-ai-org-github]の研究とインフラストラクチャの上に構築されています。[CAMEL-AI.orgをスポンサー][sponsor-link]することで`Eigent`がより良くなります。
+Stitchboat Intelligenceは[CAMEL-AI.org][camel-ai-org-github]の研究とインフラストラクチャの上に構築されています。[CAMEL-AI.orgをスポンサー][sponsor-link]することで`Stitchboat Intelligence`がより良くなります。
 
 ## **📄 オープンソースライセンス**
 
@@ -351,7 +351,7 @@ Eigentは[CAMEL-AI.org][camel-ai-org-github]の研究とインフラストラク
 
 ## 🌐 コミュニティ & お問い合わせ
 
-詳細については info@eigent.ai までお問い合わせください
+詳細については info@stitchboat.ai までお問い合わせください
 
 - **GitHub Issues:** バグ報告、機能リクエスト、開発の追跡。[Issueを提出][github-issue-link]
 
@@ -369,7 +369,7 @@ Eigentは[CAMEL-AI.org][camel-ai-org-github]の研究とインフラストラク
 
 <!-- Social -->
 
-<!-- camel & eigent -->
+<!-- camel & stitchboat -->
 
 <!-- marketing -->
 
@@ -379,28 +379,28 @@ Eigentは[CAMEL-AI.org][camel-ai-org-github]の研究とインフラストラク
 [camel-ai-org-github]: https://github.com/camel-ai
 [camel-github]: https://github.com/camel-ai/camel
 [camel-site]: https://www.camel-ai.org
-[contribution-link]: https://github.com/eigent-ai/eigent/blob/main/CONTRIBUTING.md
+[contribution-link]: https://github.com/danishtheking/stitchboat/blob/main/CONTRIBUTING.md
 [discord-image]: https://img.shields.io/discord/1082486657678311454?logo=discord&labelColor=%20%235462eb&logoColor=%20%23f5f5f5&color=%20%235462eb
 [discord-url]: https://discord.com/invite/CNcNpquyDc
-[docs-site]: https://docs.eigent.ai
-[download-shield]: https://img.shields.io/badge/Download%20Eigent-363AF5?style=plastic
-[eigent-download]: https://www.eigent.ai/download
-[eigent-github]: https://github.com/eigent-ai/eigent
-[eigent-site]: https://www.eigent.ai
-[github-issue-link]: https://github.com/eigent-ai/eigent/issues
-[github-star]: https://img.shields.io/github/stars/eigent-ai?color=F5F4F0&labelColor=gray&style=plastic&logo=github
-[image-head]: https://eigent-ai.github.io/.github/assets/head.png
+[docs-site]: https://docs.stitchboat.ai
+[download-shield]: https://img.shields.io/badge/Download%20Stitchboat Intelligence-363AF5?style=plastic
+[stitchboat-download]: https://www.stitchboat.ai/download
+[stitchboat-github]: https://github.com/danishtheking/stitchboat
+[stitchboat-site]: https://www.stitchboat.ai
+[github-issue-link]: https://github.com/danishtheking/stitchboat/issues
+[github-star]: https://img.shields.io/github/stars/danishtheking?color=F5F4F0&labelColor=gray&style=plastic&logo=github
+[image-head]: https://danishtheking.github.io/.github/assets/head.png
 [image-join-us]: https://camel-ai.github.io/camel_asset/graphics/join_us.png
-[image-opensource]: https://eigent-ai.github.io/.github/assets/opensource.png
-[image-public-beta]: https://eigent-ai.github.io/.github/assets/banner.png
-[image-seperator]: https://eigent-ai.github.io/.github/assets/seperator.png
-[image-star-us]: https://eigent-ai.github.io/.github/assets/star-us.gif
-[join-us]: https://eigent-ai.notion.site/eigent-ai-careers
+[image-opensource]: https://danishtheking.github.io/.github/assets/opensource.png
+[image-public-beta]: https://danishtheking.github.io/.github/assets/banner.png
+[image-seperator]: https://danishtheking.github.io/.github/assets/seperator.png
+[image-star-us]: https://danishtheking.github.io/.github/assets/star-us.gif
+[join-us]: https://danishtheking.notion.site/danishtheking-careers
 [join-us-image]: https://img.shields.io/badge/Join%20Us-yellow?style=plastic
 [reddit-image]: https://img.shields.io/reddit/subreddit-subscribers/CamelAI?style=plastic&logo=reddit&label=r%2FCAMEL&labelColor=white
 [reddit-url]: https://www.reddit.com/r/CamelAI/
-[social-x-link]: https://x.com/Eigent_AI
-[social-x-shield]: https://img.shields.io/badge/-%40Eigent_AI-white?labelColor=gray&logo=x&logoColor=white&style=plastic
+[social-x-link]: https://x.com/Stitchboat Intelligence_AI
+[social-x-shield]: https://img.shields.io/badge/-%40Stitchboat Intelligence_AI-white?labelColor=gray&logo=x&logoColor=white&style=plastic
 [sponsor-link]: https://github.com/sponsors/camel-ai
 [sponsor-shield]: https://img.shields.io/badge/-Sponsor%20CAMEL--AI-1d1d1d?logo=github&logoColor=white&style=plastic
 [wechat-image]: https://img.shields.io/badge/WeChat-CamelAIOrg-brightgreen?logo=wechat&logoColor=white

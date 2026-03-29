@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import asyncio
 import logging
@@ -171,15 +171,15 @@ class Workforce(BaseWorkforce):
             quality_score=80,
         )
 
-    def eigent_make_sub_tasks(
+    def stitchboat_make_sub_tasks(
         self,
         task: Task,
         coordinator_context: str = "",
         on_stream_batch=None,
         on_stream_text=None,
     ):
-        """Split process_task method to eigent_make_sub_tasks
-        and eigent_start method.
+        """Split process_task method to stitchboat_make_sub_tasks
+        and stitchboat_start method.
 
         Args:
             task: The main task to decompose
@@ -192,7 +192,7 @@ class Workforce(BaseWorkforce):
                 streaming text chunks
         """
         logger.debug(
-            "[DECOMPOSE] eigent_make_sub_tasks called",
+            "[DECOMPOSE] stitchboat_make_sub_tasks called",
             extra={"api_task_id": self.api_task_id, "task_id": task.id},
         )
 
@@ -235,11 +235,11 @@ class Workforce(BaseWorkforce):
         )
         return subtasks
 
-    async def eigent_start(self, subtasks: list[Task]):
+    async def stitchboat_start(self, subtasks: list[Task]):
         """start the workforce"""
         logger.debug(
             (
-                f"[WF-LIFECYCLE] eigent_start called with "
+                f"[WF-LIFECYCLE] stitchboat_start called with "
                 f"{len(subtasks)} subtasks"
             ),
             extra={"api_task_id": self.api_task_id},

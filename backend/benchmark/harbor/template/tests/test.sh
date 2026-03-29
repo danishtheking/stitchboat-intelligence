@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "========================================="
-echo "Running Eigent Benchmark Evaluation"
+echo "Running Stitchboat Intelligence Benchmark Evaluation"
 echo "========================================="
 
 WORKING_DIR="${WORKING_DIR:-/workspace}"

@@ -1,6 +1,6 @@
-# Eigent Docs
+# Stitchboat Intelligence Docs
 
-This directory contains the Mintlify documentation for [Eigent](https://www.eigent.ai). The docs are hosted via Mintlify and configured through `docs.json`.
+This directory contains the Mintlify documentation for [Stitchboat Intelligence](https://www.stitchboat.ai). The docs are hosted via Mintlify and configured through `docs.json`.
 
 ## Prerequisites
 

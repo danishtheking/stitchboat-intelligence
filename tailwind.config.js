@@ -9,6 +9,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          navy: 'var(--colors-brand-navy)',
+          'navy-light': 'var(--colors-brand-navy-light)',
+          gold: 'var(--colors-brand-gold)',
+          'gold-dark': 'var(--colors-brand-gold-dark)',
+          amber: 'var(--colors-brand-amber)',
+          bg: 'var(--colors-brand-bg)',
+          'bg-alt': 'var(--colors-brand-bg-alt)',
+          slate: 'var(--colors-brand-slate)',
+          text: 'var(--colors-brand-text)',
+          'text-muted': 'var(--colors-brand-text-muted)',
+        },
         red: {
           50: 'var(--colors-red-50)',
           100: 'var(--colors-red-100)',

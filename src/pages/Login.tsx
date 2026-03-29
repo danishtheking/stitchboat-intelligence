@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
@@ -24,7 +24,7 @@ import { hasStackKeys } from '@/lib';
 import { useTranslation } from 'react-i18next';
 
 import background from '@/assets/background.png';
-import eigentLogo from '@/assets/logo/eigent_icon.png';
+import stitchboatLogo from '@/assets/logo/stitchboat_icon.png';
 
 const HAS_STACK_KEYS = hasStackKeys();
 const IS_LOCAL_MODE = import.meta.env.VITE_USE_LOCAL_PROXY === 'true';
@@ -213,7 +213,7 @@ export default function Login() {
     [location.pathname, handleLoginByStack, handleGetToken, setIsLoading]
   );
 
-  // Listen for direct token callback from Electron (eigent.ai login redirect)
+  // Listen for direct token callback from Electron (stitchboat.ai login redirect)
   useEffect(() => {
     const handleTokenReceived = async (_event: any, token: string) => {
       if (!token) return;
@@ -288,14 +288,14 @@ export default function Login() {
     const prepareCallbackUrl = async () => {
       let cbUrl: string;
       if (import.meta.env.PROD) {
-        cbUrl = 'eigent://auth/callback';
+        cbUrl = 'stitchboat://auth/callback';
       } else {
-        cbUrl = 'eigent://auth/callback';
+        cbUrl = 'stitchboat://auth/callback';
         try {
           const url = await window.ipcRenderer?.invoke('get-auth-callback-url');
           if (url) cbUrl = url;
         } catch (e) {
-          // Fallback to eigent:// protocol
+          // Fallback to stitchboat:// protocol
         }
       }
       setCallbackUrl(cbUrl);
@@ -304,15 +304,15 @@ export default function Login() {
     prepareCallbackUrl();
   }, []);
 
-  // Render local mode: "Start Eigent" button only
+  // Render local mode: "Start Stitchboat Intelligence" button only
   const renderLocalMode = () => (
     <div className="relative flex w-80 flex-1 flex-col items-center justify-center pt-8">
       <img
-        src={eigentLogo}
+        src={stitchboatLogo}
         className="absolute left-1/2 top-10 h-16 w-16 -translate-x-1/2"
       />
       <div className="mb-8 text-heading-lg font-bold text-text-heading">
-        Eigent
+        Stitchboat Intelligence
       </div>
       {generalError && (
         <p className="mb-4 mt-1 text-label-md text-text-cuation">
@@ -327,7 +327,7 @@ export default function Login() {
         disabled={isLoading}
       >
         <span className="flex-1">
-          {isLoading ? t('layout.logging-in') : 'Start Eigent'}
+          {isLoading ? t('layout.logging-in') : 'Start Stitchboat Intelligence'}
         </span>
       </Button>
     </div>
@@ -337,7 +337,7 @@ export default function Login() {
   const renderHybridMode = () => (
     <div className="relative flex w-80 flex-1 flex-col items-center justify-center pt-8">
       <img
-        src={eigentLogo}
+        src={stitchboatLogo}
         className="absolute left-1/2 top-10 h-16 w-16 -translate-x-1/2"
       />
       <div className="mb-4 text-heading-lg font-bold text-text-heading">
@@ -352,7 +352,7 @@ export default function Login() {
         onClick={() => {
           setIsLoading(true);
           window.open(
-            `https://www.eigent.ai/signin?callbackUrl=${encodeURIComponent(callbackUrl || 'eigent://auth/callback')}`,
+            `https://www.stitchboat.ai/signin?callbackUrl=${encodeURIComponent(callbackUrl || 'stitchboat://auth/callback')}`,
             '_blank',
             'noopener,noreferrer'
           );

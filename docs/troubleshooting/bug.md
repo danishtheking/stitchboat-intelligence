@@ -32,7 +32,7 @@ height="auto"
 
 ### For English-speaking Users:
 
-- Join our **CAMEL-AI Discord** **🤖｜eigent** channel : https://discord.com/invite/CNcNpquyDc for bug discussions and community support
+- Join our **CAMEL-AI Discord** **🤖｜stitchboat** channel : https://discord.com/invite/CNcNpquyDc for bug discussions and community support
 - Get direct assistance from our team and community members
 
 ### For Chinese-speaking Users:
@@ -44,7 +44,7 @@ height="auto"
 
 Developers and technical users are welcome to report issues directly through our GitHub issues:
 
-- **Repository URL**: https://github.com/eigent-ai/eigent
+- **Repository URL**: https://github.com/danishtheking/stitchboat
 - Submit detailed issues with reproduction steps
 
 ## Important Notes

@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import {
   fetchPost,
@@ -63,7 +63,7 @@ import anthropicImage from '@/assets/model/anthropic.svg';
 import azureImage from '@/assets/model/azure.svg';
 import bedrockImage from '@/assets/model/bedrock.svg';
 import deepseekImage from '@/assets/model/deepseek.svg';
-import eigentImage from '@/assets/model/eigent.svg';
+import stitchboatImage from '@/assets/model/stitchboat.svg';
 import ernieImage from '@/assets/model/ernie.png';
 import geminiImage from '@/assets/model/gemini.svg';
 import llamaCppImage from '@/assets/model/llamacpp.svg';
@@ -384,7 +384,7 @@ export default function SettingModels() {
         : cloud_model_type
             .replace(/-/g, ' ')
             .replace(/\b\w/g, (c) => c.toUpperCase());
-      return `${t('setting.eigent-cloud')} / ${modelName}`;
+      return `${t('setting.stitchboat-cloud')} / ${modelName}`;
     }
 
     // Check for custom model preference
@@ -552,7 +552,7 @@ export default function SettingModels() {
         console.log('success');
         toast(t('setting.validate-success'), {
           description: t(
-            'setting.the-model-has-been-verified-to-support-function-calling-which-is-required-to-use-eigent'
+            'setting.the-model-has-been-verified-to-support-function-calling-which-is-required-to-use-stitchboat'
           ),
           closeButton: true,
         });
@@ -742,7 +742,7 @@ export default function SettingModels() {
             console.log('success');
             toast(t('setting.validate-success'), {
               description: t(
-                'setting.the-model-has-been-verified-to-support-function-calling-which-is-required-to-use-eigent'
+                'setting.the-model-has-been-verified-to-support-function-calling-which-is-required-to-use-stitchboat'
               ),
               closeButton: true,
             });
@@ -1051,7 +1051,7 @@ export default function SettingModels() {
     if (!modelId) return null;
     const modelImageMap: Record<string, string> = {
       // Cloud version
-      cloud: eigentImage,
+      cloud: stitchboatImage,
       // Cloud models
       openai: openaiImage,
       anthropic: anthropicImage,
@@ -1157,7 +1157,7 @@ export default function SettingModels() {
           <div className="mx-6 mb-4 flex flex-col justify-start self-stretch border-x-0 border-b-[0.5px] border-t-0 border-solid border-border-secondary pb-4 pt-2">
             <div className="inline-flex items-center justify-start gap-2 self-stretch">
               <div className="text-body-base my-2 flex-1 justify-center font-bold text-text-heading">
-                {t('setting.eigent-cloud')}
+                {t('setting.stitchboat-cloud')}
               </div>
               {cloudPrefer ? (
                 <Button
@@ -1197,7 +1197,7 @@ export default function SettingModels() {
               </span>
               <span
                 onClick={() => {
-                  window.location.href = `https://www.eigent.ai/pricing`;
+                  window.location.href = `https://www.stitchboat.ai/pricing`;
                 }}
                 className="cursor-pointer text-body-sm text-text-label underline"
               >
@@ -1220,7 +1220,7 @@ export default function SettingModels() {
             </div>
             <Button
               onClick={() => {
-                window.location.href = `https://www.eigent.ai/dashboard`;
+                window.location.href = `https://www.stitchboat.ai/dashboard`;
               }}
               variant="primary"
               size="sm"
@@ -1785,9 +1785,9 @@ export default function SettingModels() {
               {import.meta.env.VITE_USE_LOCAL_PROXY !== 'true' && (
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="gap-2">
-                    <img src={eigentImage} alt="Cloud" className="h-5 w-5" />
+                    <img src={stitchboatImage} alt="Cloud" className="h-5 w-5" />
                     <span className="text-body-sm">
-                      {t('setting.eigent-cloud')}
+                      {t('setting.stitchboat-cloud')}
                     </span>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuSubContent className="max-h-[300px] w-[200px] overflow-y-auto">
@@ -1943,15 +1943,15 @@ export default function SettingModels() {
             {/* Sidebar */}
             <div className="-ml-2 mr-4 h-full w-[240px] rounded-2xl bg-surface-secondary">
               <div className="flex flex-col gap-4">
-                {/* Eigent Cloud Section */}
+                {/* Stitchboat Intelligence Cloud Section */}
                 <div className="flex flex-col gap-1">
                   <div className="px-3 py-2 text-body-sm font-bold text-text-heading">
-                    {t('setting.eigent-cloud')}
+                    {t('setting.stitchboat-cloud')}
                   </div>
                   {import.meta.env.VITE_USE_LOCAL_PROXY !== 'true' &&
                     renderSidebarItem(
                       'cloud',
-                      t('setting.eigent-cloud'),
+                      t('setting.stitchboat-cloud'),
                       'cloud',
                       selectedTab === 'cloud',
                       false,

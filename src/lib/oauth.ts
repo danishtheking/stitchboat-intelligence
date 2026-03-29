@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,15 +10,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 const EnvOauthInfoMap = {
   notion: 'NOTION_TOKEN',
 };
 
 export class OAuth {
-  public client_name: string = 'Eigent';
-  public client_uri: string = 'https://eigent.ai/';
+  public client_name: string = 'Stitchboat Intelligence';
+  public client_uri: string = 'https://stitchboat.ai/';
   public redirect_uris: string[] = [];
 
   public url: string = '';
@@ -45,7 +45,7 @@ export class OAuth {
     this.url = mcp.url;
     this.provider = mcp.provider;
     this.redirect_uris = [
-      `https://dev.eigent.ai/api/v1/oauth/${this.provider}/callback`,
+      `https://dev.stitchboat.ai/api/v1/oauth/${this.provider}/callback`,
     ];
     this.authServerUrl = new URL(mcp.url).origin;
     this.resourcePath = mcp?.resourcePath || this.resourcePath;

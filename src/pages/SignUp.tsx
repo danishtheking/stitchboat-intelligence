@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
@@ -26,7 +26,7 @@ import eyeOff from '@/assets/eye-off.svg';
 import eye from '@/assets/eye.svg';
 import github2 from '@/assets/github2.svg';
 import google from '@/assets/google.svg';
-import eigentLogo from '@/assets/logo/eigent_icon.png';
+import stitchboatLogo from '@/assets/logo/stitchboat_icon.png';
 import WindowControls from '@/components/WindowControls';
 import { hasStackKeys } from '@/lib';
 import { useTranslation } from 'react-i18next';
@@ -53,7 +53,7 @@ export default function SignUp() {
   useEffect(() => {
     if (!IS_LOCAL_MODE && !HAS_STACK_KEYS) {
       window.open(
-        'https://www.eigent.ai/signup',
+        'https://www.stitchboat.ai/signup',
         '_blank',
         'noopener,noreferrer'
       );
@@ -341,7 +341,7 @@ export default function SignUp() {
         >
           <div className="relative flex w-80 flex-1 flex-col items-center justify-center pt-8">
             <img
-              src={eigentLogo}
+              src={stitchboatLogo}
               className="absolute left-1/2 top-10 h-16 w-16 -translate-x-1/2"
             />
             <div className="mb-4 flex items-end justify-between self-stretch">

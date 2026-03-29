@@ -1,9 +1,9 @@
 {
-  "name": "eigent",
+  "name": "stitchboat-intelligence",
   "version": "0.0.89",
   "main": "dist-electron/main/index.js",
-  "description": "Eigent",
-  "author": "Eigent.AI",
+  "description": "Stitchboat Intelligence - Open Source AI Workforce Desktop App",
+  "author": "Stitchboat Intelligence",
   "license": "MIT",
   "private": true,
   "debug": {

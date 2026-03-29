@@ -1,11 +1,11 @@
 ---
 title: Bring Your Own Key (BYOK)
-description: Configure your own API keys to use various LLM providers with Eigent.
+description: Configure your own API keys to use various LLM providers with Stitchboat Intelligence.
 ---
 
 ## What is BYOK?
 
-**Bring Your Own Key (BYOK)** allows you to use your own API keys from various AI model providers with Eigent. Instead of relying on a shared service, you connect directly to providers like OpenAI, Anthropic, or Google using your personal API credentials. This gives you:
+**Bring Your Own Key (BYOK)** allows you to use your own API keys from various AI model providers with Stitchboat Intelligence. Instead of relying on a shared service, you connect directly to providers like OpenAI, Anthropic, or Google using your personal API credentials. This gives you:
 
 - **Full control** over your API usage and billing
 - **Direct access** to the latest models from each provider
@@ -19,9 +19,9 @@ description: Configure your own API keys to use various LLM providers with Eigen
 1. Click **"Create new secret key"**
 1. Copy the generated key (you won't be able to see it again)
 
-### Step 2: Configure in Eigent
+### Step 2: Configure in Stitchboat Intelligence
 
-1. Launch Eigent and go to **Agent** > **Models**
+1. Launch Stitchboat Intelligence and go to **Agent** > **Models**
 
 1. Find the **OpenAI** card in the Custom Model section
 
@@ -56,7 +56,7 @@ description: Configure your own API keys to use various LLM providers with Eigen
 
 ## Common Errors
 
-When saving your configuration, Eigent validates your API key and model. Here are the errors you may encounter:
+When saving your configuration, Stitchboat Intelligence validates your API key and model. Here are the errors you may encounter:
 
 | Error                                      | Cause                                                                   | Solution                                                                   |
 | ------------------------------------------ | ----------------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ When saving your configuration, Eigent validates your API key and model. Here ar
 
 ## Supported Providers
 
-Eigent supports the following BYOK providers:
+Stitchboat Intelligence supports the following BYOK providers:
 
 | Provider              | Default API Host                                           | Official Documentation                                                                        |
 | --------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------- |

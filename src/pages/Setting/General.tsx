@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import dark from '@/assets/dark.png';
 import light from '@/assets/light.png';
@@ -266,7 +266,7 @@ export default function SettingGeneral() {
           <div className="flex items-center gap-sm">
             <Button
               onClick={() => {
-                window.location.href = `https://www.eigent.ai/dashboard?email=${authStore.email}`;
+                window.location.href = `https://www.stitchboat.ai/dashboard?email=${authStore.email}`;
               }}
               variant="primary"
               size="sm"

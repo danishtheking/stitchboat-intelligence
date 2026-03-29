@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import json
 import logging
@@ -57,7 +57,7 @@ class LinkedInToolkit(BaseLinkedInToolkit, AbstractToolkit):
         r"""Build the canonical path for storing LinkedIn tokens."""
         return env("LINKEDIN_TOKEN_PATH") or os.path.join(
             os.path.expanduser("~"),
-            ".eigent",
+            ".stitchboat",
             "tokens",
             "linkedin",
             "linkedin_token.json",
@@ -69,7 +69,7 @@ class LinkedInToolkit(BaseLinkedInToolkit, AbstractToolkit):
 
         # Force reload environment variables from default .env file
         default_env_path = os.path.join(
-            os.path.expanduser("~"), ".eigent", ".env"
+            os.path.expanduser("~"), ".stitchboat", ".env"
         )
         if os.path.exists(default_env_path):
             load_dotenv(dotenv_path=default_env_path, override=True)
@@ -105,7 +105,7 @@ class LinkedInToolkit(BaseLinkedInToolkit, AbstractToolkit):
 
         # Force reload environment variables
         default_env_path = os.path.join(
-            os.path.expanduser("~"), ".eigent", ".env"
+            os.path.expanduser("~"), ".stitchboat", ".env"
         )
         if os.path.exists(default_env_path):
             load_dotenv(dotenv_path=default_env_path, override=True)
@@ -220,7 +220,7 @@ class LinkedInToolkit(BaseLinkedInToolkit, AbstractToolkit):
 
         # Force reload environment variables
         default_env_path = os.path.join(
-            os.path.expanduser("~"), ".eigent", ".env"
+            os.path.expanduser("~"), ".stitchboat", ".env"
         )
         if os.path.exists(default_env_path):
             load_dotenv(dotenv_path=default_env_path, override=True)

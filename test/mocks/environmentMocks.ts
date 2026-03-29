@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { vi } from 'vitest';
 
@@ -29,11 +29,11 @@ export interface MockEnvironmentState {
     backendPathExists: boolean;
     pyprojectExists: boolean;
     // New fields for process.ts functions
-    eigentDirExists: boolean;
-    eigentBinDirExists: boolean;
-    eigentCacheDirExists: boolean;
-    eigentVenvsDirExists: boolean;
-    eigentRuntimeDirExists: boolean;
+    stitchboatDirExists: boolean;
+    stitchboatBinDirExists: boolean;
+    stitchboatCacheDirExists: boolean;
+    stitchboatVenvsDirExists: boolean;
+    stitchboatRuntimeDirExists: boolean;
     resourcesDirExists: boolean;
     binariesExist: { [name: string]: boolean };
     oldVenvsExist: string[]; // List of old venv directories that exist
@@ -75,11 +75,11 @@ export function createFileSystemMock() {
       installedLockExists: true,
       backendPathExists: true,
       pyprojectExists: true,
-      eigentDirExists: true,
-      eigentBinDirExists: true,
-      eigentCacheDirExists: true,
-      eigentVenvsDirExists: true,
-      eigentRuntimeDirExists: true,
+      stitchboatDirExists: true,
+      stitchboatBinDirExists: true,
+      stitchboatCacheDirExists: true,
+      stitchboatVenvsDirExists: true,
+      stitchboatRuntimeDirExists: true,
       resourcesDirExists: true,
       binariesExist: { uv: true, bun: true },
       oldVenvsExist: [],
@@ -122,22 +122,22 @@ export function createFileSystemMock() {
         return mockState.filesystem.backendPathExists;
       if (path.includes('pyproject.toml'))
         return mockState.filesystem.pyprojectExists;
-      if (path.includes('.eigent/bin') || path.includes('.eigent\\bin'))
-        return mockState.filesystem.eigentBinDirExists;
-      if (path.includes('.eigent/cache') || path.includes('.eigent\\cache'))
-        return mockState.filesystem.eigentCacheDirExists;
-      if (path.includes('.eigent/venvs') || path.includes('.eigent\\venvs'))
-        return mockState.filesystem.eigentVenvsDirExists;
-      if (path.includes('.eigent/runtime') || path.includes('.eigent\\runtime'))
-        return mockState.filesystem.eigentRuntimeDirExists;
+      if (path.includes('.stitchboat/bin') || path.includes('.stitchboat\\bin'))
+        return mockState.filesystem.stitchboatBinDirExists;
+      if (path.includes('.stitchboat/cache') || path.includes('.stitchboat\\cache'))
+        return mockState.filesystem.stitchboatCacheDirExists;
+      if (path.includes('.stitchboat/venvs') || path.includes('.stitchboat\\venvs'))
+        return mockState.filesystem.stitchboatVenvsDirExists;
+      if (path.includes('.stitchboat/runtime') || path.includes('.stitchboat\\runtime'))
+        return mockState.filesystem.stitchboatRuntimeDirExists;
       if (
-        path.includes('.eigent') &&
+        path.includes('.stitchboat') &&
         !path.includes('bin') &&
         !path.includes('cache') &&
         !path.includes('venvs') &&
         !path.includes('runtime')
       ) {
-        return mockState.filesystem.eigentDirExists;
+        return mockState.filesystem.stitchboatDirExists;
       }
       if (path.includes('resources'))
         return mockState.filesystem.resourcesDirExists;
@@ -204,27 +204,27 @@ dependencies = ["fastapi", "uvicorn"]
       if (path.includes('backend')) {
         mockState.filesystem.backendPathExists = true;
       } else if (
-        path.includes('.eigent/bin') ||
-        path.includes('.eigent\\bin')
+        path.includes('.stitchboat/bin') ||
+        path.includes('.stitchboat\\bin')
       ) {
-        mockState.filesystem.eigentBinDirExists = true;
+        mockState.filesystem.stitchboatBinDirExists = true;
       } else if (
-        path.includes('.eigent/cache') ||
-        path.includes('.eigent\\cache')
+        path.includes('.stitchboat/cache') ||
+        path.includes('.stitchboat\\cache')
       ) {
-        mockState.filesystem.eigentCacheDirExists = true;
+        mockState.filesystem.stitchboatCacheDirExists = true;
       } else if (
-        path.includes('.eigent/venvs') ||
-        path.includes('.eigent\\venvs')
+        path.includes('.stitchboat/venvs') ||
+        path.includes('.stitchboat\\venvs')
       ) {
-        mockState.filesystem.eigentVenvsDirExists = true;
+        mockState.filesystem.stitchboatVenvsDirExists = true;
       } else if (
-        path.includes('.eigent/runtime') ||
-        path.includes('.eigent\\runtime')
+        path.includes('.stitchboat/runtime') ||
+        path.includes('.stitchboat\\runtime')
       ) {
-        mockState.filesystem.eigentRuntimeDirExists = true;
-      } else if (path.includes('.eigent')) {
-        mockState.filesystem.eigentDirExists = true;
+        mockState.filesystem.stitchboatRuntimeDirExists = true;
+      } else if (path.includes('.stitchboat')) {
+        mockState.filesystem.stitchboatDirExists = true;
       }
     }),
 
@@ -241,7 +241,7 @@ dependencies = ["fastapi", "uvicorn"]
 
     readdirSync: vi.fn().mockImplementation((path: string, _options?: any) => {
       if (!path || typeof path !== 'string') return [];
-      if (path.includes('.eigent/venvs')) {
+      if (path.includes('.stitchboat/venvs')) {
         // Return old venv directories for cleanup testing
         return mockState.filesystem.oldVenvsExist.map((venv) => ({
           name: venv,
@@ -264,11 +264,11 @@ dependencies = ["fastapi", "uvicorn"]
           installedLockExists: true,
           backendPathExists: true,
           pyprojectExists: true,
-          eigentDirExists: true,
-          eigentBinDirExists: true,
-          eigentCacheDirExists: true,
-          eigentVenvsDirExists: true,
-          eigentRuntimeDirExists: true,
+          stitchboatDirExists: true,
+          stitchboatBinDirExists: true,
+          stitchboatCacheDirExists: true,
+          stitchboatVenvsDirExists: true,
+          stitchboatRuntimeDirExists: true,
           resourcesDirExists: true,
           binariesExist: { uv: true, bun: true },
           oldVenvsExist: [],
@@ -518,9 +518,9 @@ export function createProcessUtilsMock() {
       utilsMock.mockState = mockState;
 
       utilsMock.getUvEnv.mockReturnValue({
-        UV_PYTHON_INSTALL_DIR: `${mockState.system.homedir}/.eigent/cache/uv_python`,
-        UV_TOOL_DIR: `${mockState.system.homedir}/.eigent/cache/uv_tool`,
-        UV_PROJECT_ENVIRONMENT: `${mockState.system.homedir}/.eigent/venvs/backend-mock`,
+        UV_PYTHON_INSTALL_DIR: `${mockState.system.homedir}/.stitchboat/cache/uv_python`,
+        UV_TOOL_DIR: `${mockState.system.homedir}/.stitchboat/cache/uv_tool`,
+        UV_PROJECT_ENVIRONMENT: `${mockState.system.homedir}/.stitchboat/venvs/backend-mock`,
         UV_HTTP_TIMEOUT: '300',
       });
 
@@ -553,7 +553,7 @@ export function createProcessUtilsMock() {
       });
 
       utilsMock.getBinaryPath.mockImplementation(async (name?: string) => {
-        const binDir = `${mockState.system.homedir}/.eigent/bin`;
+        const binDir = `${mockState.system.homedir}/.stitchboat/bin`;
         if (!name) return binDir;
         const binaryName =
           mockState.system.platform === 'win32' ? `${name}.exe` : name;
@@ -561,15 +561,15 @@ export function createProcessUtilsMock() {
       });
 
       utilsMock.getCachePath.mockImplementation((folder: string) => {
-        return `${mockState.system.homedir}/.eigent/cache/${folder}`;
+        return `${mockState.system.homedir}/.stitchboat/cache/${folder}`;
       });
 
       utilsMock.getVenvPath.mockImplementation((version: string) => {
-        return `${mockState.system.homedir}/.eigent/venvs/backend-${version}`;
+        return `${mockState.system.homedir}/.stitchboat/venvs/backend-${version}`;
       });
 
       utilsMock.getVenvsBaseDir.mockReturnValue(
-        `${mockState.system.homedir}/.eigent/venvs`
+        `${mockState.system.homedir}/.stitchboat/venvs`
       );
 
       utilsMock.cleanupOldVenvs.mockImplementation(
@@ -719,12 +719,12 @@ export function setupMockEnvironment() {
         });
       },
 
-      missingEigentDirectories: () => {
-        fsMock.mockState.filesystem.eigentDirExists = false;
-        fsMock.mockState.filesystem.eigentBinDirExists = false;
-        fsMock.mockState.filesystem.eigentCacheDirExists = false;
-        fsMock.mockState.filesystem.eigentVenvsDirExists = false;
-        fsMock.mockState.filesystem.eigentRuntimeDirExists = false;
+      missingStitchboat IntelligenceDirectories: () => {
+        fsMock.mockState.filesystem.stitchboatDirExists = false;
+        fsMock.mockState.filesystem.stitchboatBinDirExists = false;
+        fsMock.mockState.filesystem.stitchboatCacheDirExists = false;
+        fsMock.mockState.filesystem.stitchboatVenvsDirExists = false;
+        fsMock.mockState.filesystem.stitchboatRuntimeDirExists = false;
       },
     },
 

@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,17 +10,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 /**
  * Scoped font style for HTML fragments rendered in the main document (e.g. CSV in FolderComponent).
  * Uses a wrapper class so styles do not leak to the rest of the app (sidebar, file list, etc.).
  */
-const SCOPED_FONT_STYLE = `<style data-eigent-fonts>
-  .eigent-file-content *, .eigent-file-content *::before, .eigent-file-content *::after {
+const SCOPED_FONT_STYLE = `<style data-stitchboat-fonts>
+  .stitchboat-file-content *, .stitchboat-file-content *::before, .stitchboat-file-content *::after {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
   }
-  .eigent-file-content code, .eigent-file-content pre, .eigent-file-content kbd, .eigent-file-content samp {
+  .stitchboat-file-content code, .stitchboat-file-content pre, .stitchboat-file-content kbd, .stitchboat-file-content samp {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
   }
 </style>`;
@@ -29,7 +29,7 @@ const SCOPED_FONT_STYLE = `<style data-eigent-fonts>
  * Unscoped font style for full HTML documents rendered in an iframe (e.g. HtmlRenderer).
  * Safe there because the iframe has its own document.
  */
-export const FONT_STYLE_TAG = `<style data-eigent-fonts>
+export const FONT_STYLE_TAG = `<style data-stitchboat-fonts>
   *, *::before, *::after {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
   }
@@ -54,7 +54,7 @@ export function injectFontStyles(html: string): string {
   }
   // Fragment (e.g. CSV table): scope to wrapper so styles don't affect sidebar/app
   return (
-    SCOPED_FONT_STYLE + '<div class="eigent-file-content">' + html + '</div>'
+    SCOPED_FONT_STYLE + '<div class="stitchboat-file-content">' + html + '</div>'
   );
 }
 
@@ -175,15 +175,15 @@ export function deferInlineScriptsUntilLoad(html: string): string {
       );
       const deferredRunner = [
         '(function(){',
-        'var __eigentRun=function(){',
-        "var __eigentScript=document.createElement('script');",
-        'var __eigentCurrentScript=document.currentScript;',
-        'if(__eigentCurrentScript&&__eigentCurrentScript.nonce){__eigentScript.nonce=__eigentCurrentScript.nonce;}',
-        `__eigentScript.text=${serializedContent};`,
-        '(document.head||document.body||document.documentElement).appendChild(__eigentScript);',
-        '__eigentScript.remove();',
+        'var __stitchboatRun=function(){',
+        "var __stitchboatScript=document.createElement('script');",
+        'var __stitchboatCurrentScript=document.currentScript;',
+        'if(__stitchboatCurrentScript&&__stitchboatCurrentScript.nonce){__stitchboatScript.nonce=__stitchboatCurrentScript.nonce;}',
+        `__stitchboatScript.text=${serializedContent};`,
+        '(document.head||document.body||document.documentElement).appendChild(__stitchboatScript);',
+        '__stitchboatScript.remove();',
         '};',
-        "if(document.readyState==='complete'){__eigentRun();}else{window.addEventListener('load',__eigentRun,{once:true});}",
+        "if(document.readyState==='complete'){__stitchboatRun();}else{window.addEventListener('load',__stitchboatRun,{once:true});}",
         '})();',
       ].join('');
       result += `${openTag}${deferredRunner}</script>`;

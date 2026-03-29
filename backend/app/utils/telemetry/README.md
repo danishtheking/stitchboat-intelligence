@@ -4,7 +4,7 @@ OpenTelemetry-based telemetry for CAMEL workforce events, sent to Langfuse for o
 
 ## Configuration
 
-Add the following environment variables to `~/.eigent/.env`:
+Add the following environment variables to `~/.stitchboat/.env`:
 
 ```bash
 LANGFUSE_PUBLIC_KEY=pk-lf-...
@@ -57,12 +57,12 @@ All spans share common resource attributes and scope information:
 ```json
 {
   "resourceAttributes": {
-    "service.name": "eigent-workforce",
-    "eigent.project.id": "1768815931733-6575",
-    "eigent.task.id": "1768815944094-9806"
+    "service.name": "stitchboat-workforce",
+    "stitchboat.project.id": "1768815931733-6575",
+    "stitchboat.task.id": "1768815944094-9806"
   },
   "scope": {
-    "name": "eigent.workforce",
+    "name": "stitchboat.workforce",
     "version": "0.2.83a9"
   }
 }
@@ -75,11 +75,11 @@ Emitted when a worker is created.
 ```json
 {
   "attributes": {
-    "eigent.worker.id": "73d20286-2c17-467a-8153-2a6ea8cbb6c2",
-    "eigent.worker.type": "SingleAgentWorker",
-    "eigent.worker.role": "Developer Agent: A master-level coding...",
-    "eigent.worker.agent": "developer_agent",
-    "eigent.worker.model.type": "gpt-4.1-mini"
+    "stitchboat.worker.id": "73d20286-2c17-467a-8153-2a6ea8cbb6c2",
+    "stitchboat.worker.type": "SingleAgentWorker",
+    "stitchboat.worker.role": "Developer Agent: A master-level coding...",
+    "stitchboat.worker.agent": "developer_agent",
+    "stitchboat.worker.model.type": "gpt-4.1-mini"
   }
 }
 ```
@@ -91,11 +91,11 @@ Emitted when a task is created.
 ```json
 {
   "attributes": {
-    "eigent.task.id": "1768815944094-9806.1",
-    "eigent.task.description": "Task description",
-    "eigent.project.id": "1768815931733-6575",
-    "eigent.task.parent_id": "1768815944094-9806",
-    "eigent.task.type": "task_type"
+    "stitchboat.task.id": "1768815944094-9806.1",
+    "stitchboat.task.description": "Task description",
+    "stitchboat.project.id": "1768815931733-6575",
+    "stitchboat.task.parent_id": "1768815944094-9806",
+    "stitchboat.task.type": "task_type"
   }
 }
 ```
@@ -107,11 +107,11 @@ Emitted when a task is assigned to a worker.
 ```json
 {
   "attributes": {
-    "eigent.task.id": "1768815944094-9806.1",
-    "eigent.worker.id": "0fae2d3d-7c0a-4b50-b09d-da35ae61786d",
-    "eigent.project.id": "1768815931733-6575",
-    "eigent.task.queue_time_seconds": "1.5",
-    "eigent.task.dependencies": "[\"dep_1\", \"dep_2\"]"
+    "stitchboat.task.id": "1768815944094-9806.1",
+    "stitchboat.worker.id": "0fae2d3d-7c0a-4b50-b09d-da35ae61786d",
+    "stitchboat.project.id": "1768815931733-6575",
+    "stitchboat.task.queue_time_seconds": "1.5",
+    "stitchboat.task.dependencies": "[\"dep_1\", \"dep_2\"]"
   }
 }
 ```
@@ -123,15 +123,15 @@ Long-running span tracking task execution from start to completion.
 ```json
 {
   "attributes": {
-    "eigent.task.id": "1768815944094-9806.1",
-    "eigent.project.id": "1768815931733-6575",
-    "eigent.task.status": "completed",
-    "eigent.worker.id": "0fae2d3d-7c0a-4b50-b09d-da35ae61786d",
-    "eigent.task.timestamp": "2026-01-19T09:46:40.045077+00:00",
-    "eigent.task.parent_id": "1768815944094-9806",
-    "eigent.task.processing_time_seconds": "10.926168203353882",
-    "eigent.task.quality_score": "80",
-    "eigent.task.token_usage.total_tokens": "37284"
+    "stitchboat.task.id": "1768815944094-9806.1",
+    "stitchboat.project.id": "1768815931733-6575",
+    "stitchboat.task.status": "completed",
+    "stitchboat.worker.id": "0fae2d3d-7c0a-4b50-b09d-da35ae61786d",
+    "stitchboat.task.timestamp": "2026-01-19T09:46:40.045077+00:00",
+    "stitchboat.task.parent_id": "1768815944094-9806",
+    "stitchboat.task.processing_time_seconds": "10.926168203353882",
+    "stitchboat.task.quality_score": "80",
+    "stitchboat.task.token_usage.total_tokens": "37284"
   }
 }
 ```
@@ -143,9 +143,9 @@ Emitted when all tasks in the workforce are completed.
 ```json
 {
   "attributes": {
-    "eigent.project.id": "1768815931733-6575",
-    "eigent.task.id": "1768815944094-9806",
-    "eigent.task.timestamp": "2026-01-19T09:46:44.901068+00:00",
+    "stitchboat.project.id": "1768815931733-6575",
+    "stitchboat.task.id": "1768815944094-9806",
+    "stitchboat.task.timestamp": "2026-01-19T09:46:44.901068+00:00",
     "workforce.total_tasks": "5"
   }
 }
@@ -160,7 +160,7 @@ Emitted for error and critical log messages.
   "attributes": {
     "log.level": "error",
     "log.message": "Error message",
-    "eigent.project.id": "1768815931733-6575"
+    "stitchboat.project.id": "1768815931733-6575"
   }
 }
 ```
@@ -169,35 +169,35 @@ Emitted for error and critical log messages.
 
 ### Project & Task
 
-- `eigent.project.id` - Workforce/project identifier
-- `eigent.task.id` - Task identifier
-- `eigent.task.description` - Task description
-- `eigent.task.parent_id` - Parent task ID
-- `eigent.task.type` - Task type
-- `eigent.task.status` - Task status (started, completed, failed)
-- `eigent.task.timestamp` - ISO 8601 timestamp
-- `eigent.task.dependencies` - JSON array of dependency task IDs
-- `eigent.task.queue_time_seconds` - Time in queue before assignment
-- `eigent.task.processing_time_seconds` - Task execution duration
-- `eigent.task.quality_score` - Quality score (0-100)
+- `stitchboat.project.id` - Workforce/project identifier
+- `stitchboat.task.id` - Task identifier
+- `stitchboat.task.description` - Task description
+- `stitchboat.task.parent_id` - Parent task ID
+- `stitchboat.task.type` - Task type
+- `stitchboat.task.status` - Task status (started, completed, failed)
+- `stitchboat.task.timestamp` - ISO 8601 timestamp
+- `stitchboat.task.dependencies` - JSON array of dependency task IDs
+- `stitchboat.task.queue_time_seconds` - Time in queue before assignment
+- `stitchboat.task.processing_time_seconds` - Task execution duration
+- `stitchboat.task.quality_score` - Quality score (0-100)
 
 ### Worker
 
-- `eigent.worker.id` - Worker UUID
-- `eigent.worker.type` - Worker class type
-- `eigent.worker.role` - Worker role description
-- `eigent.worker.agent` - Agent type (developer_agent, browser_agent, etc.)
-- `eigent.worker.model.type` - Model name (gpt-4, claude-3, etc.)
+- `stitchboat.worker.id` - Worker UUID
+- `stitchboat.worker.type` - Worker class type
+- `stitchboat.worker.role` - Worker role description
+- `stitchboat.worker.agent` - Agent type (developer_agent, browser_agent, etc.)
+- `stitchboat.worker.model.type` - Model name (gpt-4, claude-3, etc.)
 
 ### Token Usage
 
-- `eigent.task.token_usage.total_tokens` - Total tokens used
-- `eigent.task.token_usage.*` - Additional token usage metrics
+- `stitchboat.task.token_usage.total_tokens` - Total tokens used
+- `stitchboat.task.token_usage.*` - Additional token usage metrics
 
 ### Langfuse
 
 - `langfuse.session.id` - Set to project ID for grouping
-- `langfuse.tags` - ["workforce", "camel", "eigent"]
+- `langfuse.tags` - ["workforce", "camel", "stitchboat"]
 
 ### Workforce
 

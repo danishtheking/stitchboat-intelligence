@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import {
   fetchDelete,
@@ -80,7 +80,7 @@ function HeaderWin() {
       }
       if (response.savedPath) {
         window.location.href =
-          'https://github.com/eigent-ai/eigent/issues/new/choose';
+          'https://github.com/danishtheking/stitchboat/issues/new/choose';
         alert(t('layout.log-saved') + response.savedPath);
       }
     } catch (e: any) {
@@ -113,7 +113,7 @@ function HeaderWin() {
     try {
       const res: any = await proxyFetchGet('/api/v1/user/invite_code');
       if (res?.invite_code) {
-        const inviteLink = `https://www.eigent.ai/signup?invite_code=${res.invite_code}`;
+        const inviteLink = `https://www.stitchboat.ai/signup?invite_code=${res.invite_code}`;
         await navigator.clipboard.writeText(inviteLink);
         toast.success(t('layout.invitation-link-copied'));
       } else {
@@ -214,7 +214,7 @@ function HeaderWin() {
         <img src={defaultFolderIcon} alt="folder-icon" className="h-6 w-6" />
         {platform !== 'darwin' && (
           <span className="whitespace-nowrap text-label-md font-bold text-text-heading">
-            Eigent
+            Stitchboat Intelligence
           </span>
         )}
       </div>

@@ -1,5 +1,17 @@
 @layer base {
   :root {
+    /* Stitchboat Brand Colors */
+    --colors-brand-navy: #001626;
+    --colors-brand-navy-light: #032D49;
+    --colors-brand-gold: #FAD28C;
+    --colors-brand-gold-dark: #B1915A;
+    --colors-brand-amber: #F59E0B;
+    --colors-brand-bg: #FAFAFA;
+    --colors-brand-bg-alt: #F2F2F2;
+    --colors-brand-slate: #28293E;
+    --colors-brand-text: #292929;
+    --colors-brand-text-muted: #8A8A8A;
+
     /* Red */
     --colors-red-50: #fef2f2;
     --colors-red-100: #ffe2e2;
@@ -36,30 +48,30 @@
     --colors-green-900: #0d542b;
     --colors-green-950: #032e15;
     --colors-green-default: #00a63e;
-    /* Indigo */
-    --colors-indigo-50: #eef2ff;
-    --colors-indigo-100: #e0e7ff;
-    --colors-indigo-200: #c6d2ff;
-    --colors-indigo-300: #a3b3ff;
-    --colors-indigo-400: #7c86ff;
-    --colors-indigo-500: #615fff;
-    --colors-indigo-700: #432dd7;
-    --colors-indigo-800: #372aac;
-    --colors-indigo-900: #312c85;
-    --colors-indigo-950: #1e1a4d;
-    --colors-indigo-default: #4f39f6;
-    /* Blue */
-    --colors-blue-50: #eff6ff;
-    --colors-blue-100: #dbeafe;
-    --colors-blue-200: #bedbff;
-    --colors-blue-300: #8ec5ff;
-    --colors-blue-400: #51a2ff;
-    --colors-blue-500: #2b7fff;
-    --colors-blue-700: #1447e6;
-    --colors-blue-800: #193cb8;
-    --colors-blue-900: #1c398e;
-    --colors-blue-950: #162456;
-    --colors-blue-default: #155dfc;
+    /* Indigo (Stitchboat Gold tones) */
+    --colors-indigo-50: #FFF9EC;
+    --colors-indigo-100: #FEF0D0;
+    --colors-indigo-200: #FAD28C;
+    --colors-indigo-300: #F0C06A;
+    --colors-indigo-400: #D4A55A;
+    --colors-indigo-500: #B1915A;
+    --colors-indigo-700: #8A6D3A;
+    --colors-indigo-800: #6B5228;
+    --colors-indigo-900: #4D3A1A;
+    --colors-indigo-950: #2E2210;
+    --colors-indigo-default: #B1915A;
+    /* Blue (Stitchboat Navy tones) */
+    --colors-blue-50: #E8F0F7;
+    --colors-blue-100: #C5D9EA;
+    --colors-blue-200: #8BB3D5;
+    --colors-blue-300: #5A8DB8;
+    --colors-blue-400: #1A5A8A;
+    --colors-blue-500: #032D49;
+    --colors-blue-700: #022440;
+    --colors-blue-800: #011B30;
+    --colors-blue-900: #001626;
+    --colors-blue-950: #000D17;
+    --colors-blue-default: #001626;
     /* Amber */
     --colors-amber-50: #fffbeb;
     --colors-amber-100: #fef3c6;

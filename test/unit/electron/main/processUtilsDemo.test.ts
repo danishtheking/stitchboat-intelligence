@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 /**
  * Simple demonstration test for the new process utilities mocking
@@ -63,7 +63,7 @@ describe('Process Utils Mocking Demo', () => {
       expect(uvBinaryName).toBe('uv.exe');
 
       const uvBinaryPath = await mockEnv.processUtilsMock.getBinaryPath('uv');
-      expect(uvBinaryPath).toContain('.eigent/bin');
+      expect(uvBinaryPath).toContain('.stitchboat/bin');
       expect(uvBinaryPath).toContain('uv.exe');
     });
 
@@ -74,7 +74,7 @@ describe('Process Utils Mocking Demo', () => {
       expect(uvBinaryName).toBe('uv');
 
       const uvBinaryPath = await mockEnv.processUtilsMock.getBinaryPath('uv');
-      expect(uvBinaryPath).toContain('.eigent/bin');
+      expect(uvBinaryPath).toContain('.stitchboat/bin');
       expect(uvBinaryPath).toContain('/uv');
       expect(uvBinaryPath).not.toContain('.exe');
     });
@@ -100,12 +100,12 @@ describe('Process Utils Mocking Demo', () => {
 
     it('should return correct cache paths', () => {
       const cachePath = mockEnv.processUtilsMock.getCachePath('models');
-      expect(cachePath).toContain('.eigent/cache/models');
+      expect(cachePath).toContain('.stitchboat/cache/models');
     });
 
     it('should return correct venv paths', () => {
       const venvPath = mockEnv.processUtilsMock.getVenvPath('1.0.0');
-      expect(venvPath).toContain('.eigent/venvs/backend-1.0.0');
+      expect(venvPath).toContain('.stitchboat/venvs/backend-1.0.0');
     });
   });
 
@@ -188,18 +188,18 @@ describe('Process Utils Mocking Demo', () => {
 
   describe('File System Operations', () => {
     it('should handle directory creation correctly', () => {
-      // Test .eigent directory creation
-      mockEnv.scenarios.missingEigentDirectories();
+      // Test .stitchboat directory creation
+      mockEnv.scenarios.missingStitchboat IntelligenceDirectories();
 
-      expect(mockEnv.mockState.filesystem.eigentDirExists).toBe(false);
-      expect(mockEnv.mockState.filesystem.eigentBinDirExists).toBe(false);
+      expect(mockEnv.mockState.filesystem.stitchboatDirExists).toBe(false);
+      expect(mockEnv.mockState.filesystem.stitchboatBinDirExists).toBe(false);
 
       // Simulate directory creation
-      mockEnv.fsMock.mkdirSync('/mock/home/.eigent', { recursive: true });
-      mockEnv.fsMock.mkdirSync('/mock/home/.eigent/bin', { recursive: true });
+      mockEnv.fsMock.mkdirSync('/mock/home/.stitchboat', { recursive: true });
+      mockEnv.fsMock.mkdirSync('/mock/home/.stitchboat/bin', { recursive: true });
 
-      expect(mockEnv.mockState.filesystem.eigentDirExists).toBe(true);
-      expect(mockEnv.mockState.filesystem.eigentBinDirExists).toBe(true);
+      expect(mockEnv.mockState.filesystem.stitchboatDirExists).toBe(true);
+      expect(mockEnv.mockState.filesystem.stitchboatBinDirExists).toBe(true);
     });
 
     it('should handle file operations correctly', () => {

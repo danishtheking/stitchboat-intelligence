@@ -1,12 +1,12 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "Eigent Documentation",
+  "name": "Stitchboat Intelligence Documentation",
   "theme": "aspen",
   "defaultPage": "/get_started/welcome",
   "logo": {
     "light": "images/logo-light.png",
     "dark": "images/logo-dark.png",
-    "href": "https://www.eigent.ai"
+    "href": "https://www.stitchboat.ai"
   },
   "favicon": "images/favicon.png",
   "colors": {
@@ -31,13 +31,13 @@
       {
         "icon": "github",
         "label": "GitHub",
-        "href": "https://github.com/eigent-ai/eigent"
+        "href": "https://github.com/danishtheking/stitchboat"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Get Started",
-      "href": "https://www.eigent.ai/download"
+      "href": "https://www.stitchboat.ai/download"
     }
   },
   "navigation": {
@@ -91,7 +91,7 @@
       "anchors": [
         {
           "anchor": "Download Here",
-          "href": "https://www.eigent.ai",
+          "href": "https://www.stitchboat.ai",
           "icon": "gift"
         }
       ]
@@ -99,9 +99,9 @@
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/eigent-ai/eigent",
-      "twitter": "https://x.com/Eigent-AI",
-      "linkedin": "https://www.linkedin.com/company/eigent-ai/"
+      "github": "https://github.com/danishtheking/stitchboat",
+      "twitter": "https://x.com/Stitchboat Intelligence-AI",
+      "linkedin": "https://www.linkedin.com/company/danishtheking/"
     }
   }
 }

@@ -1,7 +1,7 @@
 [project]
-name = "Eigent"
+name = "Stitchboat Intelligence"
 version = "0.1.0"
-description = "Eigent"
+description = "Stitchboat Intelligence"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [

@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 // Comprehensive unit tests for ChatBox component
 import { render, screen, waitFor } from '@testing-library/react';
@@ -65,7 +65,7 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: Record<string, string> = {
-        'layout.welcome-to-eigent': 'Welcome to Eigent',
+        'layout.welcome-to-stitchboat': 'Welcome to Stitchboat Intelligence',
         'layout.how-can-i-help-you': 'How can I help you today?',
         'layout.it-ticket-creation': 'IT Ticket Creation',
         'layout.bank-transfer-csv-analysis':
@@ -77,7 +77,7 @@ vi.mock('react-i18next', () => ({
           'Analyze bank transfer CSV',
         'layout.find-duplicate-files-message': 'Find duplicate files',
         'chat.ask-placeholder': 'Type your message...',
-        'layout.by-messaging-eigent': 'By messaging Eigent, you agree to our',
+        'layout.by-messaging-stitchboat': 'By messaging Stitchboat Intelligence, you agree to our',
         'layout.terms-of-use': 'Terms of Use',
         'layout.and': 'and',
         'layout.privacy-policy': 'Privacy Policy',
@@ -286,7 +286,7 @@ describe('ChatBox Component', async () => {
     it('should render welcome screen when no messages exist', () => {
       renderChatBox();
 
-      expect(screen.getByText('Welcome to Eigent')).toBeInTheDocument();
+      expect(screen.getByText('Welcome to Stitchboat Intelligence')).toBeInTheDocument();
       expect(screen.getByText('How can I help you today?')).toBeInTheDocument();
     });
 

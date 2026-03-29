@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,13 +10,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 """
 Skill Toolkit with multi-tier hierarchy:
 
 Agent access control is managed via skills-config.json.
-User isolation is managed via ~/.eigent/<user_id>/skills-config.json.
+User isolation is managed via ~/.stitchboat/<user_id>/skills-config.json.
 """
 
 import json
@@ -52,11 +52,11 @@ def _get_user_config_path(user_id: str | None = None) -> Path:
         Path to user's config file
     """
     if user_id:
-        # User-specific config: ~/.eigent/<user_id>/skills-config.json
-        return Path.home() / ".eigent" / str(user_id) / SKILL_CONFIG_FILENAME
+        # User-specific config: ~/.stitchboat/<user_id>/skills-config.json
+        return Path.home() / ".stitchboat" / str(user_id) / SKILL_CONFIG_FILENAME
     else:
-        # Legacy global config: ~/.eigent/skills-config.json
-        return Path.home() / ".eigent" / SKILL_CONFIG_FILENAME
+        # Legacy global config: ~/.stitchboat/skills-config.json
+        return Path.home() / ".stitchboat" / SKILL_CONFIG_FILENAME
 
 
 def _load_skill_config(config_path: Path) -> dict[str, SkillEntryConfig]:
@@ -103,7 +103,7 @@ def _get_merged_skill_config(
     )
 
     # Load project-level config (overrides user config)
-    project_config_path = wd / ".eigent" / SKILL_CONFIG_FILENAME
+    project_config_path = wd / ".stitchboat" / SKILL_CONFIG_FILENAME
     project_config = _load_skill_config(project_config_path)
     if project_config:
         logger.debug(
@@ -210,20 +210,20 @@ def _build_allowed_skills(
 
 
 class SkillToolkit(BaseSkillToolkit):
-    """Enhanced SkillToolkit with Eigent-specific features.
+    """Enhanced SkillToolkit with Stitchboat Intelligence-specific features.
 
     Extends CAMEL's SkillToolkit with:
     - User-specific skill configuration
     - Agent-based access control
-    - Eigent-specific skill paths (.eigent/skills)
+    - Stitchboat Intelligence-specific skill paths (.stitchboat/skills)
 
     Skill Discovery Priority (highest to lowest):
-    1. Repo scope: <wd>/skills, <wd>/.eigent/skills, <wd>/.camel/skills
-    2. User scope: ~/.eigent/skills, ~/.camel/skills, ~/.config/camel/skills
+    1. Repo scope: <wd>/skills, <wd>/.stitchboat/skills, <wd>/.camel/skills
+    2. User scope: ~/.stitchboat/skills, ~/.camel/skills, ~/.config/camel/skills
     3. System scope: /etc/camel/skills
 
     Agent access control is managed via skills-config.json (agents field).
-    User isolation is managed via ~/.eigent/<user_id>/skills-config.json.
+    User isolation is managed via ~/.stitchboat/<user_id>/skills-config.json.
     """
 
     @classmethod
@@ -238,7 +238,7 @@ class SkillToolkit(BaseSkillToolkit):
         user_id: str | None = None,
         timeout: float | None = None,
     ) -> None:
-        """Initialize SkillToolkit with Eigent-specific context.
+        """Initialize SkillToolkit with Stitchboat Intelligence-specific context.
 
         Args:
             api_task_id: Task/project identifier for logging
@@ -268,9 +268,9 @@ class SkillToolkit(BaseSkillToolkit):
         )
 
     def _skill_roots(self) -> list[tuple[str, Path]]:
-        """Return skill roots with Eigent + CAMEL paths.
+        """Return skill roots with Stitchboat Intelligence + CAMEL paths.
 
-        Integrates Eigent-specific paths with CAMEL standard paths.
+        Integrates Stitchboat Intelligence-specific paths with CAMEL standard paths.
         Priority order (highest to lowest):
         1. Repo scope: project-specific skills
         2. User scope: user-level skills
@@ -283,12 +283,12 @@ class SkillToolkit(BaseSkillToolkit):
 
         # 1. Repo scope - project-specific skills (highest priority)
         roots.append(("repo", self.working_directory / "skills"))
-        roots.append(("repo", self.working_directory / ".eigent" / "skills"))
+        roots.append(("repo", self.working_directory / ".stitchboat" / "skills"))
         roots.append(("repo", self.working_directory / ".camel" / "skills"))
         roots.append(("repo", self.working_directory / ".agents" / "skills"))
 
         # 2. User scope - user-level skills
-        roots.append(("user", Path.home() / ".eigent" / "skills"))
+        roots.append(("user", Path.home() / ".stitchboat" / "skills"))
         roots.append(("user", Path.home() / ".camel" / "skills"))
         roots.append(("user", Path.home() / ".config" / "camel" / "skills"))
 

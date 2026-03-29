@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { proxyFetchGet, proxyFetchPut } from '@/api/http';
 import { Button } from '@/components/ui/button';
@@ -64,7 +64,7 @@ export default function SettingPrivacy() {
                 {t('setting.data-privacy-description')}{' '}
                 <a
                   className="text-blue-500 no-underline"
-                  href="https://www.eigent.ai/privacy-policy"
+                  href="https://www.stitchboat.ai/privacy-policy"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -111,15 +111,15 @@ export default function SettingPrivacy() {
           )}
         </div>
 
-        {/* Help Improve Eigent Section */}
+        {/* Help Improve Stitchboat Intelligence Section */}
         <div className="rounded-2xl bg-surface-secondary px-6 py-4">
           <div className="flex items-center justify-between gap-md">
             <div className="flex flex-col gap-2">
               <div className="text-body-base font-bold text-text-heading">
-                {t('setting.help-improve-eigent')}
+                {t('setting.help-improve-stitchboat')}
               </div>
               <div className="text-body-sm font-normal text-text-body">
-                {t('setting.help-improve-eigent-description')}
+                {t('setting.help-improve-stitchboat-description')}
               </div>
             </div>
             <div className="flex items-center justify-center">

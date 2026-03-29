@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import asyncio
 import datetime
@@ -717,7 +717,7 @@ async def step_solve(options: Chat, request: Request, task_lock: TaskLock):
                         nonlocal summary_task_content
                         try:
                             sub_tasks = await asyncio.to_thread(
-                                workforce.eigent_make_sub_tasks,
+                                workforce.stitchboat_make_sub_tasks,
                                 camel_task,
                                 context_for_coordinator,
                                 on_stream_batch,
@@ -833,7 +833,7 @@ async def step_solve(options: Chat, request: Request, task_lock: TaskLock):
                 # to both camel_task and sub_tasks
                 new_tasks = add_sub_tasks(camel_task, item.data.task)
                 # Also add new tasks to sub_tasks so
-                # workforce.eigent_start uses correct list
+                # workforce.stitchboat_start uses correct list
                 sub_tasks.extend(new_tasks)
                 # Save updated sub_tasks back to
                 # task_lock so Action.start uses
@@ -1073,7 +1073,7 @@ async def step_solve(options: Chat, request: Request, task_lock: TaskLock):
                 task_lock.status = Status.processing
                 if not sub_tasks:
                     sub_tasks = getattr(task_lock, "decompose_sub_tasks", [])
-                task = asyncio.create_task(workforce.eigent_start(sub_tasks))
+                task = asyncio.create_task(workforce.stitchboat_start(sub_tasks))
                 task_lock.add_background_task(task)
             elif item.action == Action.task_state:
                 # Track completed task results for the end event
@@ -1743,7 +1743,7 @@ async def step_solve(options: Chat, request: Request, task_lock: TaskLock):
                     )
                     if workforce is not None:
                         task = asyncio.create_task(
-                            workforce.eigent_start(camel_task.subtasks)
+                            workforce.stitchboat_start(camel_task.subtasks)
                         )
                         task_lock.add_background_task(task)
             elif item.action == Action.budget_not_enough:

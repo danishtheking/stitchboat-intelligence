@@ -1,6 +1,6 @@
 # Benchmark
 
-Run workforce benchmarks against the Eigent API and grade results.
+Run workforce benchmarks against the Stitchboat Intelligence API and grade results.
 
 ## Setup
 

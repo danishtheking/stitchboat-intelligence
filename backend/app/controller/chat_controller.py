@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import asyncio
 import logging
@@ -207,7 +207,7 @@ async def post(data: Chat, request: Request):
     ).strip(".")
     camel_log = (
         Path.home()
-        / ".eigent"
+        / ".stitchboat"
         / email_sanitized
         / ("project_" + data.project_id)
         / ("task_" + data.task_id)
@@ -294,10 +294,10 @@ def improve(id: str, data: SupplementChat):
             current_file_save_path = os.environ.get("file_save_path", "")
             if current_file_save_path:
                 path_parts = Path(current_file_save_path).parts
-                if len(path_parts) >= 3 and "eigent" in path_parts:
-                    eigent_index = path_parts.index("eigent")
-                    if eigent_index + 1 < len(path_parts):
-                        current_email = path_parts[eigent_index + 1]
+                if len(path_parts) >= 3 and "stitchboat" in path_parts:
+                    stitchboat_index = path_parts.index("stitchboat")
+                    if stitchboat_index + 1 < len(path_parts):
+                        current_email = path_parts[stitchboat_index + 1]
 
             # If we have the necessary info, update
             # the file_save_path
@@ -306,7 +306,7 @@ def improve(id: str, data: SupplementChat):
                 # pattern: email/project_{id}/task_{id}
                 new_folder_path = (
                     Path.home()
-                    / "eigent"
+                    / "stitchboat"
                     / current_email
                     / f"project_{id}"
                     / f"task_{data.task_id}"

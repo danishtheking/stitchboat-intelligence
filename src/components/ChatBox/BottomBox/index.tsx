@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import { type ChatTaskStatusType } from '@/types/constants';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +66,7 @@ export default function BottomBox({
   loading = false,
 }: BottomBoxProps) {
   const { t } = useTranslation();
-  const enableQueuedBox = true; //TODO: Fix the reason of queued box disable in https://github.com/eigent-ai/eigent/issues/684
+  const enableQueuedBox = true; //TODO: Fix the reason of queued box disable in https://github.com/danishtheking/stitchboat/issues/684
 
   // Background color reflects current state only
   let backgroundClass = 'bg-input-bg-default';

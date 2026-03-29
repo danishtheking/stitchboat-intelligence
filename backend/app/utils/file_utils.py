@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 """File system utilities with robust path handling and edge-case safety."""
 
@@ -286,13 +286,13 @@ def get_working_directory(options: Chat, task_lock=None) -> str:
     return normalize_working_path(raw)
 
 
-def sync_eigent_skills_to_project(working_directory: str) -> None:
+def sync_stitchboat_skills_to_project(working_directory: str) -> None:
     """
-    Copy skills from ~/.eigent/skills into the project's .eigent/skills
+    Copy skills from ~/.stitchboat/skills into the project's .stitchboat/skills
     so the agent can load and execute them from the project working directory.
     """
-    src = Path.home() / ".eigent" / "skills"
-    dst = Path(working_directory) / ".eigent" / "skills"
+    src = Path.home() / ".stitchboat" / "skills"
+    dst = Path(working_directory) / ".stitchboat" / "skills"
     if not src.is_dir():
         return
     try:
@@ -304,7 +304,7 @@ def sync_eigent_skills_to_project(working_directory: str) -> None:
                     shutil.rmtree(dest_skill)
                 shutil.copytree(skill_dir, dest_skill)
         logger.debug(
-            "Synced eigent skills to project",
+            "Synced stitchboat skills to project",
             extra={
                 "working_directory": working_directory,
                 "destination": str(dst),
@@ -312,7 +312,7 @@ def sync_eigent_skills_to_project(working_directory: str) -> None:
         )
     except OSError as e:
         logger.warning(
-            "Failed to sync ~/.eigent/skills to project %s: %s",
+            "Failed to sync ~/.stitchboat/skills to project %s: %s",
             working_directory,
             e,
             exc_info=True,

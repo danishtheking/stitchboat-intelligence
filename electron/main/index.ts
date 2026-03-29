@@ -1,4 +1,4 @@
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+// ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import axios from 'axios';
 import {
@@ -101,7 +101,7 @@ interface CdpBrowser {
 let cdp_browser_pool: CdpBrowser[] = [];
 let cdpHealthCheckTimer: ReturnType<typeof setInterval> | null = null;
 
-const CDP_POOL_FILE = path.join(os.homedir(), '.eigent', 'cdp-browsers.json');
+const CDP_POOL_FILE = path.join(os.homedir(), '.stitchboat', 'cdp-browsers.json');
 
 /** Persist pool to disk. */
 function saveCdpPool(): void {
@@ -315,9 +315,9 @@ let profileInitPromise: Promise<void>;
 
 // Set remote debugging port
 // Storage strategy:
-// 1. Main window: partition 'persist:main_window' in app userData → Eigent account (persistent)
+// 1. Main window: partition 'persist:main_window' in app userData → Stitchboat Intelligence account (persistent)
 // 2. WebView: partition 'persist:user_login' in app userData → will import cookies from tool_controller via session API
-// 3. tool_controller: ~/.eigent/browser_profiles/profile_user_login → source of truth for login cookies
+// 3. tool_controller: ~/.stitchboat/browser_profiles/profile_user_login → source of truth for login cookies
 // 4. CDP browser: uses separate profile (doesn't share with main app)
 profileInitPromise = findAvailablePort(browser_port).then(async (port) => {
   browser_port = port;
@@ -326,7 +326,7 @@ profileInitPromise = findAvailablePort(browser_port).then(async (port) => {
   // Create isolated profile for CDP browser only
   const browserProfilesBase = path.join(
     os.homedir(),
-    '.eigent',
+    '.stitchboat',
     'browser_profiles'
   );
   const cdpProfile = path.join(browserProfilesBase, `cdp_profile_${port}`);
@@ -370,7 +370,7 @@ if (proxyUrl) {
 // Disable automation controlled indicator to avoid detection
 app.commandLine.appendSwitch('disable-blink-features', 'AutomationControlled');
 
-// Override User Agent to remove Electron/eigent identifiers
+// Override User Agent to remove Electron/stitchboat identifiers
 // Dynamically generate User Agent based on actual platform and Chrome version
 const getPlatformUA = () => {
   // Use actual Chrome version from Electron instead of hardcoded value
@@ -436,16 +436,16 @@ if (!app.requestSingleInstanceLock()) {
 // ==================== protocol config ====================
 const setupProtocolHandlers = () => {
   if (process.env.NODE_ENV === 'development') {
-    const isDefault = app.isDefaultProtocolClient('eigent', process.execPath, [
+    const isDefault = app.isDefaultProtocolClient('stitchboat', process.execPath, [
       path.resolve(process.argv[1]),
     ]);
     if (!isDefault) {
-      app.setAsDefaultProtocolClient('eigent', process.execPath, [
+      app.setAsDefaultProtocolClient('stitchboat', process.execPath, [
         path.resolve(process.argv[1]),
       ]);
     }
   } else {
-    app.setAsDefaultProtocolClient('eigent');
+    app.setAsDefaultProtocolClient('stitchboat');
   }
 };
 
@@ -529,8 +529,8 @@ function processQueuedProtocolUrls() {
 }
 
 // ==================== auth callback server ====================
-// Local HTTP server for receiving auth callbacks from external login (eigent.ai)
-// Works in both dev and production mode, avoids eigent:// protocol issues in dev
+// Local HTTP server for receiving auth callbacks from external login (stitchboat.ai)
+// Works in both dev and production mode, avoids stitchboat:// protocol issues in dev
 let authCallbackServer: http.Server | null = null;
 let authCallbackPort: number | null = null;
 
@@ -558,7 +558,7 @@ async function startAuthCallbackServer() {
         </style></head>
         <body><div class="container">
           <h1>Login Successful</h1>
-          <p>You can close this tab and return to Eigent.</p>
+          <p>You can close this tab and return to Stitchboat Intelligence.</p>
         </div></body></html>
       `);
 
@@ -588,7 +588,7 @@ const setupSingleInstanceLock = () => {
   // to register the event handlers.
   app.on('second-instance', (event, argv) => {
     log.info('second-instance', argv);
-    const url = argv.find((arg) => arg.startsWith('eigent://'));
+    const url = argv.find((arg) => arg.startsWith('stitchboat://'));
     if (url) handleProtocolUrl(url);
     if (win) win.show();
   });
@@ -1082,7 +1082,7 @@ function registerIpcHandlers() {
       const platform = process.platform;
       const arch = process.arch;
       const systemVersion = `${platform}-${arch}`;
-      const defaultFileName = `eigent-${appVersion}-${systemVersion}-${Date.now()}.log`;
+      const defaultFileName = `stitchboat-${appVersion}-${systemVersion}-${Date.now()}.log`;
 
       // Show save dialog
       const { canceled, filePath } = await dialog.showSaveDialog({
@@ -1581,7 +1581,7 @@ function registerIpcHandlers() {
   // ======================== skills-config.json handlers ========================
 
   function getSkillConfigPath(userId: string): string {
-    return path.join(os.homedir(), '.eigent', userId, 'skills-config.json');
+    return path.join(os.homedir(), '.stitchboat', userId, 'skills-config.json');
   }
 
   async function loadSkillConfig(userId: string): Promise<any> {
@@ -1781,7 +1781,7 @@ function registerIpcHandlers() {
               );
           const tempPath = path.join(
             os.tmpdir(),
-            `eigent-skill-import-${Date.now()}.zip`
+            `stitchboat-skill-import-${Date.now()}.zip`
           );
           try {
             await fsp.writeFile(tempPath, buf);
@@ -2075,7 +2075,7 @@ function registerIpcHandlers() {
     fs.writeFileSync(ENV_PATH, lines.join('\n'), 'utf-8');
 
     // Also write to global .env file for backend process to read
-    const GLOBAL_ENV_PATH = path.join(os.homedir(), '.eigent', '.env');
+    const GLOBAL_ENV_PATH = path.join(os.homedir(), '.stitchboat', '.env');
     let globalContent = '';
     try {
       globalContent = fs.existsSync(GLOBAL_ENV_PATH)
@@ -2113,7 +2113,7 @@ function registerIpcHandlers() {
     log.info('env-remove success', ENV_PATH);
 
     // Also remove from global .env file
-    const GLOBAL_ENV_PATH = path.join(os.homedir(), '.eigent', '.env');
+    const GLOBAL_ENV_PATH = path.join(os.homedir(), '.stitchboat', '.env');
     try {
       let globalContent = fs.existsSync(GLOBAL_ENV_PATH)
         ? fs.readFileSync(GLOBAL_ENV_PATH, 'utf-8')
@@ -2379,16 +2379,16 @@ function registerIpcHandlers() {
   registerUpdateIpcHandlers();
 }
 
-// ==================== ensure eigent directories ====================
-const ensureEigentDirectories = () => {
-  const eigentBase = path.join(os.homedir(), '.eigent');
+// ==================== ensure stitchboat directories ====================
+const ensureStitchboat IntelligenceDirectories = () => {
+  const stitchboatBase = path.join(os.homedir(), '.stitchboat');
   const requiredDirs = [
-    eigentBase,
-    path.join(eigentBase, 'bin'),
-    path.join(eigentBase, 'cache'),
-    path.join(eigentBase, 'venvs'),
-    path.join(eigentBase, 'runtime'),
-    path.join(eigentBase, 'skills'),
+    stitchboatBase,
+    path.join(stitchboatBase, 'bin'),
+    path.join(stitchboatBase, 'cache'),
+    path.join(stitchboatBase, 'venvs'),
+    path.join(stitchboatBase, 'runtime'),
+    path.join(stitchboatBase, 'skills'),
   ];
 
   for (const dir of requiredDirs) {
@@ -2398,11 +2398,11 @@ const ensureEigentDirectories = () => {
     }
   }
 
-  log.info('.eigent directory structure ensured');
+  log.info('.stitchboat directory structure ensured');
 };
 
 // ==================== skills (used at startup and by IPC) ====================
-const SKILLS_ROOT = path.join(os.homedir(), '.eigent', 'skills');
+const SKILLS_ROOT = path.join(os.homedir(), '.stitchboat', 'skills');
 const SKILL_FILE = 'SKILL.md';
 
 const getExampleSkillsSourceDir = (): string => {
@@ -2453,7 +2453,7 @@ async function seedDefaultSkillsIfEmpty(): Promise<void> {
   }
   if (copiedCount > 0) {
     log.info(
-      `Seeded ${copiedCount} default skill(s) to ~/.eigent/skills from`,
+      `Seeded ${copiedCount} default skill(s) to ~/.stitchboat/skills from`,
       exampleDir
     );
   }
@@ -2494,7 +2494,7 @@ async function importSkillsFromZip(
   // Extract to a temp directory, then find SKILL.md files and copy their
   // parent skill directories into SKILLS_ROOT.  This handles any zip
   // structure: wrapping directories, SKILL.md at root, or multiple skills.
-  const tempDir = path.join(os.tmpdir(), `eigent-skill-extract-${Date.now()}`);
+  const tempDir = path.join(os.tmpdir(), `stitchboat-skill-extract-${Date.now()}`);
   try {
     if (!existsSync(zipPath)) {
       return { success: false, error: 'Zip file does not exist' };
@@ -2680,7 +2680,7 @@ async function importSkillsFromZip(
     }
 
     log.info(
-      `Imported ${skillFiles.length} skill(s) from zip into ~/.eigent/skills:`,
+      `Imported ${skillFiles.length} skill(s) from zip into ~/.stitchboat/skills:`,
       zipPath
     );
     return { success: true };
@@ -2715,8 +2715,8 @@ let installationLock: Promise<PromiseReturnType> = Promise.resolve({
 async function createWindow() {
   const isMac = process.platform === 'darwin';
 
-  // Ensure .eigent directories exist before anything else
-  ensureEigentDirectories();
+  // Ensure .stitchboat directories exist before anything else
+  ensureStitchboat IntelligenceDirectories();
   await seedDefaultSkillsIfEmpty();
 
   // Load persisted CDP browser pool from disk
@@ -2739,7 +2739,7 @@ async function createWindow() {
   // Platform-specific window configuration
   // Windows: native frame and solid background. macOS/Linux: frameless; macOS corner radius via native hook.
   win = new BrowserWindow({
-    title: 'Eigent',
+    title: 'Stitchboat Intelligence',
     width: 1200,
     height: 800,
     minWidth: 1050,
@@ -2843,7 +2843,7 @@ async function createWindow() {
   try {
     const browserProfilesBase = path.join(
       os.homedir(),
-      '.eigent',
+      '.stitchboat',
       'browser_profiles'
     );
     const toolControllerProfile = path.join(

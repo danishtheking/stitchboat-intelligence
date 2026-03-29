@@ -1,4 +1,4 @@
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ========= Copyright 2025-2026 @ Eigent.ai All Rights Reserved. =========
+# ========= Copyright 2025-2026 @ Stitchboat Intelligence All Rights Reserved. =========
 
 import json
 import logging
@@ -93,7 +93,7 @@ class Chat(BaseModel):
         """Return the filesystem user_id used by skills-config.
 
         This must stay aligned with frontend `emailToUserId` so
-        `~/.eigent/<user_id>/skills-config.json` is shared consistently.
+        `~/.stitchboat/<user_id>/skills-config.json` is shared consistently.
         """
         user_id = re.sub(
             r'[\\/*?:"<>|\s]', "_", self.email.split("@")[0]
@@ -125,7 +125,7 @@ class Chat(BaseModel):
         # Use project-based structure: project_{project_id}/task_{task_id}
         save_path = (
             Path.home()
-            / "eigent"
+            / "stitchboat"
             / email
             / f"project_{self.project_id}"
             / f"task_{self.task_id}"
